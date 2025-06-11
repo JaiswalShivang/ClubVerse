@@ -37,7 +37,7 @@ class ClubPortalApp extends StatelessWidget {
         useMaterial3: true,
         colorSchemeSeed: Colors.blue,
       ),
-      initialRoute: '/register',
+      initialRoute: '/',
       routes: {
         '/': (context) => const LoginScreen(),
         '/register': (context) => const StudentRegisterScreen(),

@@ -1,0 +1,282 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:uniclub/screens/club_login_screen.dart';
+import 'package:uniclub/services/firebase_service.dart';
+
+class StudentLoginScreen extends StatefulWidget {
+  const StudentLoginScreen({super.key});
+
+  @override
+  State<StudentLoginScreen> createState() => _StudentLoginScreenState();
+}
+
+class _StudentLoginScreenState extends State<StudentLoginScreen> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Row(
+          children: [
+            // Left side with login form
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Logo
+                    const Text(
+                      'UNICLUB',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF7C4DFF),
+                      ),
+                    ),
+                    const SizedBox(height: 60),
+                    // Login title
+                    const Text(
+                      'STUDENT LOGIN',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    // Username field
+                    Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF5F5FF),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: TextField(
+                        controller: _usernameController,
+                        decoration: const InputDecoration(
+                          hintText: 'Username',
+                          prefixIcon: Icon(Icons.person_outline),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 16),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Password field
+                    Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF5F5FF),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: TextField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          hintText: 'Password',
+                          prefixIcon: Icon(Icons.lock_outline),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 16),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    // Login button
+                    SizedBox(
+                      width: 120,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          if (_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+                            try {
+                              final FirebaseService firebaseService = FirebaseService();
+                              final userCredential = await firebaseService.signInWithEmailAndPassword(
+                                _usernameController.text,
+                                _passwordController.text,
+                              );
+                              
+                              // Show success message
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Login successful!'),
+                                  backgroundColor: Color(0xFF7C4DFF),
+                                  behavior: SnackBarBehavior.floating,
+                                ),
+                              );
+                              
+                              // TODO: Navigate to home screen
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Error signing in: $e')),
+                              );
+                            }
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Please enter username and password')),
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF7C4DFF),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text('Login'),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    // Login with others
+                    const Text(
+                      'Login with Others',
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Social login buttons
+                    Row(                      
+                      children: [
+                        // Google login
+                        OutlinedButton.icon(
+                          onPressed: () async {
+                            try {
+                              final FirebaseService firebaseService = FirebaseService();
+                              final userCredential = await firebaseService.signInWithGoogle();
+                              if (userCredential != null) {
+                                // Navigate to home screen or show success message
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Google sign-in successful!')),
+                                );
+                              }
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Error signing in with Google: $e')),
+                              );
+                            }
+                          },
+                          icon: SvgPicture.asset(
+                            'assets/images/google_logo.svg',
+                            height: 18,
+                            width: 18,
+                          ),
+                          label: const Text('Login with google'),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.black87,
+                            side: const BorderSide(color: Colors.grey),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    // Switch to club login
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ClubLoginScreen(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Switch to Club Login',
+                          style: TextStyle(color: Color(0xFF7C4DFF)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Right side with image and text
+            Expanded(
+              child: Container(
+                color: const Color(0xFF7C4DFF),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(24),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Column(
+                            children: [
+                              const Text(
+                                'CONNECT\nWITH YOUR\nCOLLEGE\nPEERS!',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  height: 1.5,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 24),
+                              // Placeholder for student image
+                              Container(
+                                height: 200,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 100,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+                        // Navigation arrows
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.white,
+                              ),
+                              style: IconButton.styleFrom(
+                                backgroundColor: Colors.white.withOpacity(0.2),
+                                shape: const CircleBorder(),
+                                padding: const EdgeInsets.all(16),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

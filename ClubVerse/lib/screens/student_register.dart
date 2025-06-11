@@ -30,25 +30,102 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
   }
 
   Future<void> _loadColleges() async {
+    // Predefined list of colleges with their domains
+    final List<Map<String, dynamic>> predefinedColleges = [
+      {
+        'id': 'vit',
+        'name': 'Vishwakarma Institute of Technology',
+        'domain': 'vit.edu',
+      },
+      {
+        'id': 'viit',
+        'name': 'Vishawakarma Institute of Information Technology',
+        'domain': 'viit.ac.in',
+      },
+      {
+        'id': 'adypsoe',
+        'name': 'Ajinkya DY Patil School of Engineering',
+        'domain': 'dypic.in',
+      },
+      {
+        'id': 'yale',
+        'name': 'Yale University',
+        'domain': 'yale.edu',
+      },
+      {
+        'id': 'princeton',
+        'name': 'Princeton University',
+        'domain': 'princeton.edu',
+      },
+      {
+        'id': 'columbia',
+        'name': 'Columbia University',
+        'domain': 'columbia.edu',
+      },
+      {
+        'id': 'berkeley',
+        'name': 'UC Berkeley',
+        'domain': 'berkeley.edu',
+      },
+      {
+        'id': 'oxford',
+        'name': 'University of Oxford',
+        'domain': 'ox.ac.uk',
+      },
+      {
+        'id': 'cambridge',
+        'name': 'University of Cambridge',
+        'domain': 'cam.ac.uk',
+      },
+      {
+        'id': 'caltech',
+        'name': 'California Institute of Technology',
+        'domain': 'caltech.edu',
+      },
+    ];
+
     try {
+      // First try to load from Firestore
       final snapshot =
           await FirebaseFirestore.instance.collection('colleges').get();
+
+      print('Loaded ${snapshot.docs.length} colleges from Firestore');
 
       final collegeList = snapshot.docs.map((doc) {
         final data = doc.data();
         return {
           'id': doc.id,
-          'name': data['name'],
-          'domain': data['domain'],
+          'name': data['name'] ?? 'Unknown College',
+          'domain': data['domain'] ?? 'example.com',
         };
       }).toList();
 
-      setState(() {
-        _colleges = collegeList;
-        _selectedCollege = _colleges.isNotEmpty ? _colleges[0] : null;
-      });
+      // If colleges found in Firestore, use them
+      if (collegeList.isNotEmpty) {
+        setState(() {
+          _colleges = collegeList;
+          _selectedCollege = _colleges.isNotEmpty ? _colleges[0] : null;
+          _isLoading = false;
+        });
+      } else {
+        // If no colleges found in Firestore, use the predefined list
+        print('No colleges found in Firestore, using predefined list');
+        setState(() {
+          _colleges = predefinedColleges;
+          _selectedCollege = _colleges[0];
+          _isLoading = false;
+        });
+      }
     } catch (e) {
-      setState(() => _error = 'Failed to load colleges: $e');
+      // If there's an error loading from Firestore, use the predefined list
+      print('Error loading colleges from Firestore: $e');
+      print('Using predefined college list instead');
+      setState(() {
+        _error = null; // Clear any previous error
+        _isLoading = false;
+        _colleges = predefinedColleges;
+        _selectedCollege = _colleges[0];
+      });
     }
   }
 
@@ -106,13 +183,21 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
   }
 
   Widget _buildInput(String label, TextEditingController controller,
-      {bool obscure = false}) {
-    return TextField(
-      controller: controller,
-      obscureText: obscure,
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(),
+      {bool obscure = false, IconData? prefixIcon}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFF5F5FF),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: TextField(
+        controller: controller,
+        obscureText: obscure,
+        decoration: InputDecoration(
+          hintText: label,
+          prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        ),
       ),
     );
   }
@@ -120,66 +205,209 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Student Registration')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: _colleges.isEmpty
-            ? const Center(child: CircularProgressIndicator())
-            : ListView(
-                children: [
-                  DropdownButtonFormField<Map<String, dynamic>>(
-                    value: _selectedCollege,
-                    onChanged: (val) => setState(() => _selectedCollege = val),
-                    items: _colleges
-                        .map((college) => DropdownMenuItem(
-                              value: college,
-                              child: Text(college['name']),
-                            ))
-                        .toList(),
-                    decoration: const InputDecoration(
-                      labelText: 'Select College',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  _buildInput('College Email', _email),
-                  const SizedBox(height: 12),
-                  _buildInput('Password', _password, obscure: true),
-                  const SizedBox(height: 12),
-                  _buildInput('Full Name', _name),
-                  const SizedBox(height: 12),
-                  _buildInput('Student ID', _studentId),
-                  const SizedBox(height: 12),
-                  _buildInput('Department / Course', _department),
-                  const SizedBox(height: 12),
-                  DropdownButtonFormField<int>(
-                    value: _year,
-                    onChanged: (val) => setState(() => _year = val!),
-                    items: List.generate(
-                        4,
-                        (i) => DropdownMenuItem(
-                            value: i + 1, child: Text('${i + 1} Year'))),
-                    decoration: const InputDecoration(
-                      labelText: 'Year of Study',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: _isLoading ? null : _registerStudent,
-                    child: _isLoading
-                        ? const CircularProgressIndicator()
-                        : const Text('Register'),
-                  ),
-                  if (_error != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: Text(_error!,
-                          style: const TextStyle(color: Colors.red)),
-                    ),
-                ],
-              ),
+      appBar: AppBar(
+        title: const Text('Student Registration'),
+        backgroundColor: const Color(0xFF7C4DFF),
+        foregroundColor: Colors.white,
+        elevation: 0,
       ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator(color: Color(0xFF7C4DFF)))
+          : Row(
+              children: [
+                // Left side with registration form
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Logo
+                        const Text(
+                          'UNICLUB',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF7C4DFF),
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                        // Registration title
+                        const Text(
+                          'STUDENT REGISTRATION',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        // Form fields in a scrollable container
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // College selection
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFF5F5FF),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                                  child: DropdownButtonFormField<Map<String, dynamic>>(
+                                    value: _selectedCollege,
+                                    onChanged: (val) => setState(() => _selectedCollege = val),
+                                    items: _colleges
+                                        .map((college) => DropdownMenuItem(
+                                              value: college,
+                                              child: Text(college['name']),
+                                            ))
+                                        .toList(),
+                                    decoration: const InputDecoration(
+                                      hintText: 'Select College',
+                                      border: InputBorder.none,
+                                      contentPadding: EdgeInsets.symmetric(vertical: 16),
+                                    ),
+                                    icon: const Icon(Icons.school_outlined),
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                _buildInput('College Email', _email, prefixIcon: Icons.email_outlined),
+                                const SizedBox(height: 16),
+                                _buildInput('Password', _password, obscure: true, prefixIcon: Icons.lock_outline),
+                                const SizedBox(height: 16),
+                                _buildInput('Full Name', _name, prefixIcon: Icons.person_outline),
+                                const SizedBox(height: 16),
+                                _buildInput('Student ID', _studentId, prefixIcon: Icons.badge_outlined),
+                                const SizedBox(height: 16),
+                                _buildInput('Department / Course', _department, prefixIcon: Icons.school_outlined),
+                                const SizedBox(height: 16),
+                                // Year selection
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFF5F5FF),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                                  child: DropdownButtonFormField<int>(
+                                    value: _year,
+                                    onChanged: (val) => setState(() => _year = val!),
+                                    items: List.generate(
+                                        4,
+                                        (i) => DropdownMenuItem(
+                                            value: i + 1, child: Text('${i + 1} Year'))),
+                                    decoration: const InputDecoration(
+                                      hintText: 'Year of Study',
+                                      border: InputBorder.none,
+                                      contentPadding: EdgeInsets.symmetric(vertical: 16),
+                                    ),
+                                    icon: const Icon(Icons.calendar_today_outlined),
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                // Register button
+                                Center(
+                                  child: SizedBox(
+                                    width: 150,
+                                    child: ElevatedButton(
+                                      onPressed: _isLoading ? null : _registerStudent,
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color(0xFF7C4DFF),
+                                        foregroundColor: Colors.white,
+                                        padding: const EdgeInsets.symmetric(vertical: 16),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        disabledBackgroundColor: const Color(0xFF7C4DFF).withOpacity(0.6),
+                                      ),
+                                      child: _isLoading
+                                          ? const SizedBox(
+                                              height: 20,
+                                              width: 20,
+                                              child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                                strokeWidth: 2,
+                                              ),
+                                            )
+                                          : const Text('Register'),
+                                    ),
+                                  ),
+                                ),
+                                if (_error != null)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 16),
+                                    child: Center(
+                                      child: Text(
+                                        _error!,
+                                        style: const TextStyle(color: Colors.red, fontSize: 14),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // Right side with image and text
+                Expanded(
+                  child: Container(
+                    color: const Color(0xFF7C4DFF),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(24),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    'JOIN YOUR\nCOLLEGE\nCOMMUNITY!',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      height: 1.5,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(height: 24),
+                                  // Placeholder for student image
+                                  Container(
+                                    height: 200,
+                                    width: 200,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.3),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.school,
+                                        size: 100,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }
