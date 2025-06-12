@@ -63,7 +63,48 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     }
   }
 
-  // No longer needed as we've implemented custom input fields directly in the tabs
+  Future<void> _handleGoogleSignIn() async {
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
+
+    try {
+      final userCredential = await AuthService().signInWithGoogle();
+      
+      if (userCredential?.user != null) {
+        final user = userCredential!.user!;
+        
+        try {
+          // Try to get existing user role
+          await UserService().getUserRole(user.uid);
+          
+          // User exists, proceed with navigation
+          if (!mounted) return;
+          Navigator.pushReplacementNamed(context, '/student-dashboard');
+        } catch (e) {
+          // User doesn't exist, create new user
+          await UserService().createUser(user.uid, {
+            'role': 'student',
+            'email': user.email ?? '',
+            'name': user.displayName ?? '',
+            'photoUrl': user.photoURL ?? '',
+            'verified': user.emailVerified,
+          });
+          
+          if (!mounted) return;
+          Navigator.pushReplacementNamed(context, '/student-dashboard');
+        }
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _error = e.toString());
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
 
   Widget _studentTab() {
     return Padding(
@@ -144,12 +185,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
             children: [
               // Google login
               OutlinedButton.icon(
-                onPressed: () {
-                  // TODO: Implement Google sign-in
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Google sign-in not implemented yet')),
-                  );
-                },
+                onPressed: _handleGoogleSignIn,
                 icon: SvgPicture.asset(
                   'assets/images/google_logo.svg',
                   height: 18,
