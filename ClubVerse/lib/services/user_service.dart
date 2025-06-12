@@ -10,4 +10,15 @@ class UserService {
     }
     return doc.data()!;
   }
+
+  Future<void> createUser(String uid, Map<String, dynamic> userData) async {
+    try {
+      await _db.collection('users').doc(uid).set({
+        ...userData,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      throw Exception('Failed to create user: $e');
+    }
+  }
 }
