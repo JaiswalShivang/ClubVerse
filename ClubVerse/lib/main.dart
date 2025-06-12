@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'theme/app_theme.dart';
 import 'screens/login_screen.dart';
 import 'screens/student_register.dart';
 import 'screens/student_dashboard.dart';
@@ -33,10 +34,7 @@ class ClubPortalApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'College Club Portal',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.blue,
-      ),
+      theme: AppTheme.lightTheme,
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginScreen(),

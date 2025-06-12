@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../auth/auth_service.dart';
 import '../services/user_service.dart';
 import '../widgets/loading_spinner.dart';
+import '../theme/app_theme.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -215,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                     if (states.contains(MaterialState.selected)) {
                       return Colors.white;
                     }
-                    return Colors.black87;
+                    return AppTheme.textLightColor;
                   },
                 ),
                 textStyle: MaterialStateProperty.resolveWith<TextStyle>(

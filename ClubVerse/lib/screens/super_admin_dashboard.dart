@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../theme/app_theme.dart';
 
 class SuperAdminDashboard extends StatefulWidget {
   const SuperAdminDashboard({super.key});
@@ -257,7 +258,7 @@ class _SuperAdminDashboardState extends State<SuperAdminDashboard> {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: _isCreating
-                          ? const CircularProgressIndicator(color: Colors.white)
+                          ? const CircularProgressIndicator(color: AppTheme.textLightColor)
                           : const Text('Create & Invite'),
                     ),
                   ],
@@ -271,7 +272,7 @@ class _SuperAdminDashboardState extends State<SuperAdminDashboard> {
                   child: Text(
                     _status!,
                     style: TextStyle(
-                      color: _status!.startsWith('Error') ? Colors.red : Colors.green,
+                      color: _status!.startsWith('Error') ? AppTheme.errorColor : AppTheme.successColor,
                       fontSize: 16,
                     ),
                   ),
@@ -287,7 +288,7 @@ class _SuperAdminDashboardState extends State<SuperAdminDashboard> {
   Widget _buildSidebar() {
     return Container(
       width: 250,
-      color: const Color(0xFF7C4DFF),
+      color: AppTheme.primaryColor,
       child: Column(
         children: [
           const SizedBox(height: 20),
@@ -337,7 +338,7 @@ class _SuperAdminDashboardState extends State<SuperAdminDashboard> {
                     ),
                   ),
                   selected: _selectedIndex == index,
-                  selectedTileColor: Colors.white.withAlpha(25), // 0.1 opacity is approximately 25 in alpha (255 * 0.1)
+                  selectedTileColor: AppTheme.textLightColor.withAlpha(25),
                   onTap: () {
                     setState(() {
                       _selectedIndex = index;
@@ -482,7 +483,7 @@ class _SuperAdminDashboardState extends State<SuperAdminDashboard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 48, color: const Color(0xFF7C4DFF)),
+            Icon(icon, size: 48, color: AppTheme.primaryColor),
             const SizedBox(height: 16),
             Text(
               value,
@@ -491,7 +492,7 @@ class _SuperAdminDashboardState extends State<SuperAdminDashboard> {
             const SizedBox(height: 8),
             Text(
               title,
-              style: const TextStyle(color: Colors.grey),
+              style: const TextStyle(color: AppTheme.textSecondaryColor),
               textAlign: TextAlign.center,
             ),
           ],

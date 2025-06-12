@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../theme/app_theme.dart';
 
 class StudentEmailVerificationScreen extends StatefulWidget {
   const StudentEmailVerificationScreen({super.key});
@@ -44,7 +45,7 @@ class _StudentEmailVerificationScreenState
       appBar: AppBar(title: const Text('Verify Your Email')),
       body: Center(
         child: _checking
-            ? const CircularProgressIndicator()
+            ? const CircularProgressIndicator(color: AppTheme.primaryColor)
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

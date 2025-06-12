@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../theme/app_theme.dart';
 
 class StudentRegisterScreen extends StatefulWidget {
   const StudentRegisterScreen({super.key});
@@ -212,7 +213,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
         elevation: 0,
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: Color(0xFF7C4DFF)))
+          ? const Center(child: CircularProgressIndicator(color: AppTheme.primaryColor))
           : Row(
               children: [
                 // Left side with registration form
@@ -318,7 +319,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(12),
                                         ),
-                                        disabledBackgroundColor: const Color(0xFF7C4DFF).withOpacity(0.6),
+                                        disabledBackgroundColor: AppTheme.primaryColor.withOpacity(0.6),
                                       ),
                                       child: _isLoading
                                           ? const SizedBox(
@@ -339,7 +340,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                     child: Center(
                                       child: Text(
                                         _error!,
-                                        style: const TextStyle(color: Colors.red, fontSize: 14),
+                                        style: const TextStyle(color: AppTheme.errorColor, fontSize: 14),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),

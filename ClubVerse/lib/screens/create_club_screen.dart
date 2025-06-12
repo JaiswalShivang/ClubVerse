@@ -1,9 +1,12 @@
-import 'dart:io';
+import 'dart:io' as io;
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import '../theme/app_theme.dart';
 
 class CreateClubScreen extends StatefulWidget {
   const CreateClubScreen({super.key});
@@ -21,8 +24,10 @@ class _CreateClubScreenState extends State<CreateClubScreen> {
   String _category = 'Tech';
   String _permissionLevel = 'full';
 
-  File? _logoFile;
-  File? _bannerFile;
+  dynamic _logoFile;
+  dynamic _bannerFile;
+  Uint8List? _logoBytes;
+  Uint8List? _bannerBytes;
   bool _loading = false;
   String? _status;
 
@@ -31,19 +36,47 @@ class _CreateClubScreenState extends State<CreateClubScreen> {
   Future<void> _pickImage(ImageSource source, bool isLogo) async {
     final picked = await ImagePicker().pickImage(source: source);
     if (picked != null) {
-      setState(() {
-        if (isLogo) {
-          _logoFile = File(picked.path);
-        } else {
-          _bannerFile = File(picked.path);
-        }
-      });
+      if (kIsWeb) {
+        // Handle web platform
+        final bytes = await picked.readAsBytes();
+        setState(() {
+          if (isLogo) {
+            _logoBytes = bytes;
+            _logoFile = picked;
+          } else {
+            _bannerBytes = bytes;
+            _bannerFile = picked;
+          }
+        });
+      } else {
+        // Handle mobile platform
+        setState(() {
+          if (isLogo) {
+            _logoFile = io.File(picked.path);
+          } else {
+            _bannerFile = io.File(picked.path);
+          }
+        });
+      }
     }
   }
 
-  Future<String> _uploadFile(File file, String path) async {
+  Future<String> _uploadFile(dynamic file, String path, {Uint8List? bytes}) async {
     final ref = FirebaseStorage.instance.ref().child(path);
-    await ref.putFile(file);
+    
+    if (kIsWeb) {
+      // Handle web platform using bytes
+      if (bytes != null) {
+        await ref.putData(bytes);
+      } else if (file is XFile) {
+        final imageBytes = await file.readAsBytes();
+        await ref.putData(imageBytes);
+      }
+    } else {
+      // Handle mobile platform using File
+      await ref.putFile(file as io.File);
+    }
+    
     return await ref.getDownloadURL();
   }
 
@@ -74,9 +107,9 @@ class _CreateClubScreenState extends State<CreateClubScreen> {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: _adminEmail.text.trim());
 
       // Upload images
-      final logoUrl = await _uploadFile(_logoFile!, 'clubs/logos/${_clubName.text.trim()}');
+      final logoUrl = await _uploadFile(_logoFile!, 'clubs/logos/${_clubName.text.trim()}', bytes: _logoBytes);
       final bannerUrl = _bannerFile != null
-          ? await _uploadFile(_bannerFile!, 'clubs/banners/${_clubName.text.trim()}')
+          ? await _uploadFile(_bannerFile!, 'clubs/banners/${_clubName.text.trim()}', bytes: _bannerBytes)
           : '';
 
       // Create club
@@ -133,7 +166,9 @@ class _CreateClubScreenState extends State<CreateClubScreen> {
               child: Text(file == null ? 'Select Image' : 'Change Image'),
             ),
             const SizedBox(width: 10),
-            if (file != null) Text(file.path.split('/').last),
+            if (file != null) Text(kIsWeb 
+              ? (file is XFile ? file.name : 'Selected image') 
+              : (file as io.File).path.split('/').last),
           ],
         ),
       ],
@@ -213,7 +248,7 @@ class _CreateClubScreenState extends State<CreateClubScreen> {
                 child: Text(
                   _status!,
                   style: TextStyle(
-                    color: _status!.startsWith('Error') ? Colors.red : Colors.green,
+                    color: _status!.startsWith('Error') ? AppTheme.errorColor : AppTheme.successColor,
                   ),
                 ),
               ),
