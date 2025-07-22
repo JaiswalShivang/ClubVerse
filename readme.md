@@ -188,6 +188,7 @@ Here are some Figma design ideas for the login page:
 </tr>
 </table>
 
+=======
 ---
 
 ## 🚀 **Quick Start**
