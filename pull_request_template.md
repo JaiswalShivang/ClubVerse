@@ -78,7 +78,6 @@
 
 ## 🧹 Code Quality
 - [ ] TypeScript best practices
-- [ ] ESLint/Prettier clean
 - [ ] No console.logs in production
 - [ ] Error handling present
 - [ ] Accessibility (a11y) considered

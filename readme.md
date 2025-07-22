@@ -12,6 +12,8 @@
 [![Views](https://visitor-badge.laobi.icu/badge?page_id=your-username.clubverse)](https://visitor-badge.laobi.icu/badge?page_id=your-username.clubverse)
 [![⭐ GitHub stars](https://img.shields.io/github/stars/your-username/clubverse?style=social)](https://github.com/your-username/clubverse/stargazers)
 [![🍴 GitHub forks](https://img.shields.io/github/forks/your-username/clubverse?style=social)](https://github.com/your-username/clubverse/network)
+[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Active-blueviolet?style=flat-square)](https://github.com/your-username/clubverse/blob/main/CODE_OF_CONDUCT.md)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-brightgreen?style=flat-square&logo=vercel)](https://clubverse.vercel.app/)
 
 </div>
 
@@ -27,9 +29,9 @@ ClubVerse is a comprehensive, all-in-one platform designed to streamline club ma
 - **Club Core System**: Functionality for club creation, member management, role assignments (Admin, Leader, Member), and categorized group chats.
 - **Real-time Communication**: Integrated chat with permissions, channel privacy, and media sharing.
 - **Event Management**: Create and manage club events with an RSVP system and calendar integrations.
-- **Notifications**: Push notifications and email digests to keep users informed.
-- **Admin & Analytics**: Dashboards for tracking user activity, engagement metrics, and generating reports.
-- **Discovery & Recommendation**: An intelligent system to help students find clubs based on their interests.
+- **Notifications**: Push notifications and email digests to keep users informed. _(Planned)_
+- **Admin & Analytics**: Dashboards for tracking user activity, engagement metrics, and generating reports. _(Planned)_
+- **Discovery & Recommendation**: An intelligent system to help students find clubs based on their interests. _(Planned)_
 
 > _"Connect, engage, and thrive with your college clubs!"_
 
@@ -91,14 +93,14 @@ _Help students and colleges everywhere by contributing to a platform that matter
 
 - **Event Creation**: A simple interface for creating single or recurring events.
 - **RSVP Tracking**: Easily track who is attending your events.
-- **Calendar Integration**: (Planned) Sync events with Google Calendar or iCal.
-- **Push & Email Alerts**: (Planned) Automated notifications for event reminders, announcements, and new messages.
+- **Calendar Integration**: _(Planned)_ Sync events with Google Calendar or iCal.
+- **Push & Email Alerts**: _(Planned)_ Automated notifications for event reminders, announcements, and new messages.
 
 ### 🛠️ **Admin Tools & Analytics**
 
-- **Metrics Dashboard**: (Planned) Track key metrics like user activity, club growth, and event attendance.
-- **Sponsorship Tracking**: (Planned) Tools to manage club sponsorships.
-- **Certificate Generation**: (Planned) Automatically generate certificates of participation or leadership.
+- **Metrics Dashboard**: _(Planned)_ Track key metrics like user activity, club growth, and event attendance.
+- **Sponsorship Tracking**: _(Planned)_ Tools to manage club sponsorships.
+- **Certificate Generation**: _(Planned)_ Automatically generate certificates of participation or leadership.
 
 ---
 
@@ -117,18 +119,17 @@ _Help students and colleges everywhere by contributing to a platform that matter
 ### 🛠️ **Development Tools**
 
 - **Package Manager**: pnpm / npm
-- **Code Quality**: ESLint, Prettier (planned)
 - **Version Control**: Git
 - **Deployment**: Vercel
 
 ### 🔧 **Planned Future Enhancements**
 
-- **Authentication**: Firebase Authentication
-- **Database**: Firebase Firestore / PostgreSQL
-- **Real-time Chat**: WebSocket-based solution
-- **Backend API**: FastAPI for analytics and complex queries
-- **Search**: Elasticsearch for powerful search and filtering
-- **Recommendations**: Scikit-learn or a rule-based engine for club suggestions
+- **Authentication**: Firebase Authentication _(Planned)_
+- **Database**: Firebase Firestore / PostgreSQL _(Planned)_
+- **Real-time Chat**: WebSocket-based solution _(Planned)_
+- **Backend API**: FastAPI for analytics and complex queries _(Planned)_
+- **Search**: Elasticsearch for powerful search and filtering _(Planned)_
+- **Recommendations**: Scikit-learn or a rule-based engine for club suggestions _(Planned)_
 
 ---
 
@@ -174,8 +175,20 @@ ClubVerse/
 
 ## 📸 **Screenshots**
 
-_(placeholder: Add screenshots of the application here. For example:)_
+Here are some Figma design ideas for the login page:
 
+<table>
+<tr>
+  <td><img src="images/figma-login-1.png" alt="Figma Login Idea 1" width="400"></td>
+  <td><img src="images/figma-login-2.png" alt="Figma Login Idea 2" width="400"></td>
+</tr>
+<tr>
+  <td><b>Login Page Idea 1</b></td>
+  <td><b>Login Page Idea 2</b></td>
+</tr>
+</table>
+
+=======
 ---
 
 ## 🚀 **Quick Start**
@@ -279,17 +292,32 @@ Please make sure to read our (planned) `CONTRIBUTING.md` for more details on our
 
 A huge thank you to all the amazing people who have contributed to ClubVerse!
 
-_(placeholder: This section will be automatically updated by the all-contributors bot or a similar tool once set up.)_
-
-<a href="https://github.com/your-username/clubverse/contributors">
+<a href="https://github.com/your-username/clubverse/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=your-username/clubverse" />
 </a>
 
+## 🏆 **Hall of Fame**
+
+Special thanks to our top contributors and maintainers! (Coming soon)
+
 ---
 
-## 📜 **License**
+## 🛠️ **Built With**
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+<p align="left">
+  <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=white" alt="Next.js" /></a>
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB" alt="React" /></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white" alt="TypeScript" /></a>
+  <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" /></a>
+  <a href="https://shadcn/ui"><img src="https://img.shields.io/badge/shadcn/ui-000?logo=react&logoColor=white" alt="shadcn/ui" /></a>
+  <a href="https://lucide.dev/"><img src="https://img.shields.io/badge/Lucide-000?logo=lucide&logoColor=white" alt="Lucide" /></a>
+</p>
+
+---
+
+## 📝 **Changelog**
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of major changes and updates.
 
 ---
 
@@ -304,3 +332,24 @@ _Feel free to [open an issue](https://github.com/your-username/clubverse/issues)
 💡 _Let's build the ultimate college club platform, together!_
 
 </div>
+
+## 💬 **How to Get Help**
+
+- Ask questions or start discussions in [GitHub Discussions](https://github.com/your-username/clubverse/discussions)
+- Open an [Issue](https://github.com/your-username/clubverse/issues) for bugs or feature requests
+- Message us on Discord (link in repo or website)
+
+## 🌟 **Why Contribute?**
+
+- Help students and colleges connect, grow, and thrive
+- Learn and collaborate with a global community
+- Build your portfolio and gain open source experience
+- Make a real impact in the education and community space
+
+## 🏅 **Top Contributors**
+
+We recognize and thank our most active contributors here! (Coming soon)
+
+## 📞 **Community Call & Updates**
+
+Stay tuned for monthly updates and community calls! (Coming soon)
