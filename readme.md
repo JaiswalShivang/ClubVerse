@@ -27,9 +27,9 @@ ClubVerse is a comprehensive, all-in-one platform designed to streamline club ma
 - **Club Core System**: Functionality for club creation, member management, role assignments (Admin, Leader, Member), and categorized group chats.
 - **Real-time Communication**: Integrated chat with permissions, channel privacy, and media sharing.
 - **Event Management**: Create and manage club events with an RSVP system and calendar integrations.
-- **Notifications**: Push notifications and email digests to keep users informed.
-- **Admin & Analytics**: Dashboards for tracking user activity, engagement metrics, and generating reports.
-- **Discovery & Recommendation**: An intelligent system to help students find clubs based on their interests.
+- **Notifications**: Push notifications and email digests to keep users informed. _(Planned)_
+- **Admin & Analytics**: Dashboards for tracking user activity, engagement metrics, and generating reports. _(Planned)_
+- **Discovery & Recommendation**: An intelligent system to help students find clubs based on their interests. _(Planned)_
 
 > _"Connect, engage, and thrive with your college clubs!"_
 
@@ -91,14 +91,14 @@ _Help students and colleges everywhere by contributing to a platform that matter
 
 - **Event Creation**: A simple interface for creating single or recurring events.
 - **RSVP Tracking**: Easily track who is attending your events.
-- **Calendar Integration**: (Planned) Sync events with Google Calendar or iCal.
-- **Push & Email Alerts**: (Planned) Automated notifications for event reminders, announcements, and new messages.
+- **Calendar Integration**: _(Planned)_ Sync events with Google Calendar or iCal.
+- **Push & Email Alerts**: _(Planned)_ Automated notifications for event reminders, announcements, and new messages.
 
 ### 🛠️ **Admin Tools & Analytics**
 
-- **Metrics Dashboard**: (Planned) Track key metrics like user activity, club growth, and event attendance.
-- **Sponsorship Tracking**: (Planned) Tools to manage club sponsorships.
-- **Certificate Generation**: (Planned) Automatically generate certificates of participation or leadership.
+- **Metrics Dashboard**: _(Planned)_ Track key metrics like user activity, club growth, and event attendance.
+- **Sponsorship Tracking**: _(Planned)_ Tools to manage club sponsorships.
+- **Certificate Generation**: _(Planned)_ Automatically generate certificates of participation or leadership.
 
 ---
 
@@ -122,12 +122,12 @@ _Help students and colleges everywhere by contributing to a platform that matter
 
 ### 🔧 **Planned Future Enhancements**
 
-- **Authentication**: Firebase Authentication
-- **Database**: Firebase Firestore / PostgreSQL
-- **Real-time Chat**: WebSocket-based solution
-- **Backend API**: FastAPI for analytics and complex queries
-- **Search**: Elasticsearch for powerful search and filtering
-- **Recommendations**: Scikit-learn or a rule-based engine for club suggestions
+- **Authentication**: Firebase Authentication _(Planned)_
+- **Database**: Firebase Firestore / PostgreSQL _(Planned)_
+- **Real-time Chat**: WebSocket-based solution _(Planned)_
+- **Backend API**: FastAPI for analytics and complex queries _(Planned)_
+- **Search**: Elasticsearch for powerful search and filtering _(Planned)_
+- **Recommendations**: Scikit-learn or a rule-based engine for club suggestions _(Planned)_
 
 ---
 
