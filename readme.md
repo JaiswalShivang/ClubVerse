@@ -12,6 +12,8 @@
 [![Views](https://visitor-badge.laobi.icu/badge?page_id=your-username.clubverse)](https://visitor-badge.laobi.icu/badge?page_id=your-username.clubverse)
 [![⭐ GitHub stars](https://img.shields.io/github/stars/your-username/clubverse?style=social)](https://github.com/your-username/clubverse/stargazers)
 [![🍴 GitHub forks](https://img.shields.io/github/forks/your-username/clubverse?style=social)](https://github.com/your-username/clubverse/network)
+[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Active-blueviolet?style=flat-square)](https://github.com/your-username/clubverse/blob/main/CODE_OF_CONDUCT.md)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-brightgreen?style=flat-square&logo=vercel)](https://clubverse.vercel.app/)
 
 </div>
 
@@ -173,24 +175,16 @@ ClubVerse/
 
 ## 📸 **Screenshots**
 
-_(placeholder: Add screenshots of the application here. For example:)_
+Here are some Figma design ideas for the login page:
 
 <table>
 <tr>
-  <td><img src="https://via.placeholder.com/400x250.png?text=Super+Admin+Dashboard" alt="Super Admin Dashboard"></td>
-  <td><img src="https://via.placeholder.com/400x250.png?text=Club+Page" alt="Club Page"></td>
+  <td><img src="images/figma-login-1.png" alt="Figma Login Idea 1" width="400"></td>
+  <td><img src="images/figma-login-2.png" alt="Figma Login Idea 2" width="400"></td>
 </tr>
 <tr>
-  <td><b>Super Admin Dashboard</b></td>
-  <td><b>Club Page</b></td>
-</tr>
-<tr>
-  <td><img src="https://via.placeholder.com/400x250.png?text=Student+Dashboard" alt="Student Dashboard"></td>
-  <td><img src="https://via.placeholder.com/400x250.png?text=Login+Page" alt="Login Page"></td>
-</tr>
-<tr>
-  <td><b>Student Dashboard</b></td>
-  <td><b>Login Page</b></td>
+  <td><b>Login Page Idea 1</b></td>
+  <td><b>Login Page Idea 2</b></td>
 </tr>
 </table>
 
@@ -297,17 +291,32 @@ Please make sure to read our (planned) `CONTRIBUTING.md` for more details on our
 
 A huge thank you to all the amazing people who have contributed to ClubVerse!
 
-_(placeholder: This section will be automatically updated by the all-contributors bot or a similar tool once set up.)_
-
-<a href="https://github.com/your-username/clubverse/contributors">
+<a href="https://github.com/your-username/clubverse/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=your-username/clubverse" />
 </a>
 
+## 🏆 **Hall of Fame**
+
+Special thanks to our top contributors and maintainers! (Coming soon)
+
 ---
 
-## 📜 **License**
+## 🛠️ **Built With**
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+<p align="left">
+  <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=white" alt="Next.js" /></a>
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB" alt="React" /></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white" alt="TypeScript" /></a>
+  <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" /></a>
+  <a href="https://shadcn/ui"><img src="https://img.shields.io/badge/shadcn/ui-000?logo=react&logoColor=white" alt="shadcn/ui" /></a>
+  <a href="https://lucide.dev/"><img src="https://img.shields.io/badge/Lucide-000?logo=lucide&logoColor=white" alt="Lucide" /></a>
+</p>
+
+---
+
+## 📝 **Changelog**
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of major changes and updates.
 
 ---
 
@@ -322,3 +331,24 @@ _Feel free to [open an issue](https://github.com/your-username/clubverse/issues)
 💡 _Let's build the ultimate college club platform, together!_
 
 </div>
+
+## 💬 **How to Get Help**
+
+- Ask questions or start discussions in [GitHub Discussions](https://github.com/your-username/clubverse/discussions)
+- Open an [Issue](https://github.com/your-username/clubverse/issues) for bugs or feature requests
+- Message us on Discord (link in repo or website)
+
+## 🌟 **Why Contribute?**
+
+- Help students and colleges connect, grow, and thrive
+- Learn and collaborate with a global community
+- Build your portfolio and gain open source experience
+- Make a real impact in the education and community space
+
+## 🏅 **Top Contributors**
+
+We recognize and thank our most active contributors here! (Coming soon)
+
+## 📞 **Community Call & Updates**
+
+Stay tuned for monthly updates and community calls! (Coming soon)
