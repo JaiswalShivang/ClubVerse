@@ -1,15 +1,15 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useAuth } from "@/hooks/useAuth"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
   DialogContent,
@@ -17,132 +17,132 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Building2, Users, BarChart3, Plus, Search, Edit, Trash2 } from "lucide-react"
-import { Navbar } from "@/components/navbar"
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Building2, Users, BarChart3, Plus, Search, Edit, Trash2 } from 'lucide-react';
+import { Navbar } from '@/components/navbar';
 
 interface Club {
-  id: string
-  name: string
-  description: string
-  adminId: string
-  adminName: string
-  memberCount: number
-  createdAt: string
+  id: string;
+  name: string;
+  description: string;
+  adminId: string;
+  adminName: string;
+  memberCount: number;
+  createdAt: string;
 }
 
 interface Student {
-  id: string
-  name: string
-  email: string
-  enrolledClubs: string[]
-  joinedAt: string
-  isActive: boolean
+  id: string;
+  name: string;
+  email: string;
+  enrolledClubs: string[];
+  joinedAt: string;
+  isActive: boolean;
 }
 
 export default function CollegeAdminDashboard() {
-  const { user, signOut } = useAuth()
-  const router = useRouter()
-  const [clubs, setClubs] = useState<Club[]>([])
-  const [students, setStudents] = useState<Student[]>([])
-  const [searchTerm, setSearchTerm] = useState("")
-  const [isAddClubOpen, setIsAddClubOpen] = useState(false)
+  const { user, signOut } = useAuth();
+  const router = useRouter();
+  const [clubs, setClubs] = useState<Club[]>([]);
+  const [students, setStudents] = useState<Student[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isAddClubOpen, setIsAddClubOpen] = useState(false);
 
   useEffect(() => {
-    if (!user || user.role !== "college_admin") {
-      router.push("/")
-      return
+    if (!user || user.role !== 'college_admin') {
+      router.push('/');
+      return;
     }
 
     // Mock data for college admin
     const mockClubs: Club[] = [
       {
-        id: "club-1",
-        name: "Photography Club",
-        description: "Capture moments, create memories",
-        adminId: "club-admin-1",
-        adminName: "Mike Wilson",
+        id: 'club-1',
+        name: 'Photography Club',
+        description: 'Capture moments, create memories',
+        adminId: 'club-admin-1',
+        adminName: 'Mike Wilson',
         memberCount: 45,
-        createdAt: "2024-01-10",
+        createdAt: '2024-01-10',
       },
       {
-        id: "club-2",
-        name: "Debate Society",
-        description: "Sharpen your arguments and public speaking",
-        adminId: "club-admin-2",
-        adminName: "Emma Davis",
+        id: 'club-2',
+        name: 'Debate Society',
+        description: 'Sharpen your arguments and public speaking',
+        adminId: 'club-admin-2',
+        adminName: 'Emma Davis',
         memberCount: 32,
-        createdAt: "2024-01-12",
+        createdAt: '2024-01-12',
       },
       {
-        id: "club-3",
-        name: "Coding Club",
-        description: "Learn, code, and build amazing projects",
-        adminId: "club-admin-3",
-        adminName: "Alex Brown",
+        id: 'club-3',
+        name: 'Coding Club',
+        description: 'Learn, code, and build amazing projects',
+        adminId: 'club-admin-3',
+        adminName: 'Alex Brown',
         memberCount: 78,
-        createdAt: "2024-01-15",
+        createdAt: '2024-01-15',
       },
-    ]
+    ];
 
     const mockStudents: Student[] = [
       {
-        id: "student-1",
-        name: "Alice Cooper",
-        email: "alice@student.techuni.edu",
-        enrolledClubs: ["club-1", "club-2"],
-        joinedAt: "2024-01-20",
+        id: 'student-1',
+        name: 'Alice Cooper',
+        email: 'alice@student.techuni.edu',
+        enrolledClubs: ['club-1', 'club-2'],
+        joinedAt: '2024-01-20',
         isActive: true,
       },
       {
-        id: "student-2",
-        name: "Bob Johnson",
-        email: "bob@student.techuni.edu",
-        enrolledClubs: ["club-1"],
-        joinedAt: "2024-01-22",
+        id: 'student-2',
+        name: 'Bob Johnson',
+        email: 'bob@student.techuni.edu',
+        enrolledClubs: ['club-1'],
+        joinedAt: '2024-01-22',
         isActive: true,
       },
       {
-        id: "student-3",
-        name: "Carol Smith",
-        email: "carol@student.techuni.edu",
-        enrolledClubs: ["club-2", "club-3"],
-        joinedAt: "2024-01-25",
+        id: 'student-3',
+        name: 'Carol Smith',
+        email: 'carol@student.techuni.edu',
+        enrolledClubs: ['club-2', 'club-3'],
+        joinedAt: '2024-01-25',
         isActive: false,
       },
-    ]
+    ];
 
-    setClubs(mockClubs)
-    setStudents(mockStudents)
-  }, [user, router])
+    setClubs(mockClubs);
+    setStudents(mockStudents);
+  }, [user, router]);
 
   const handleAddClub = (clubData: any) => {
     const newClub: Club = {
-      id: "club-" + Date.now(),
+      id: 'club-' + Date.now(),
       ...clubData,
-      adminId: "club-admin-" + Date.now(),
+      adminId: 'club-admin-' + Date.now(),
       memberCount: 0,
-      createdAt: new Date().toISOString().split("T")[0],
-    }
-    setClubs((prev) => [...prev, newClub])
-    setIsAddClubOpen(false)
-  }
+      createdAt: new Date().toISOString().split('T')[0],
+    };
+    setClubs((prev) => [...prev, newClub]);
+    setIsAddClubOpen(false);
+  };
 
   const filteredClubs = clubs.filter(
     (club) =>
       club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       club.adminName.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  );
 
   const filteredStudents = students.filter(
     (student) =>
       student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.email.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  );
 
-  if (!user) return null
+  if (!user) return null;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -199,7 +199,9 @@ export default function CollegeAdminDashboard() {
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{clubs.reduce((sum, club) => sum + club.memberCount, 0)}</div>
+              <div className="text-2xl font-bold">
+                {clubs.reduce((sum, club) => sum + club.memberCount, 0)}
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -316,11 +318,13 @@ export default function CollegeAdminDashboard() {
                         <Badge variant="secondary">{student.enrolledClubs.length} clubs</Badge>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <Badge variant={student.isActive ? "default" : "secondary"}>
-                          {student.isActive ? "Active" : "Inactive"}
+                        <Badge variant={student.isActive ? 'default' : 'secondary'}>
+                          {student.isActive ? 'Active' : 'Inactive'}
                         </Badge>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{student.joinedAt}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {student.joinedAt}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -345,7 +349,10 @@ export default function CollegeAdminDashboard() {
                 </div>
                 <div>
                   <Label htmlFor="college-description">Description</Label>
-                  <Textarea id="college-description" value="Leading technology university with innovative programs" />
+                  <Textarea
+                    id="college-description"
+                    value="Leading technology university with innovative programs"
+                  />
                 </div>
                 <Button>Update College Profile</Button>
               </CardContent>
@@ -383,12 +390,17 @@ export default function CollegeAdminDashboard() {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span>Active Students</span>
-                      <span className="font-medium">{students.filter((s) => s.isActive).length}</span>
+                      <span className="font-medium">
+                        {students.filter((s) => s.isActive).length}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span>Average Clubs per Student</span>
                       <span className="font-medium">
-                        {(students.reduce((sum, s) => sum + s.enrolledClubs.length, 0) / students.length).toFixed(1)}
+                        {(
+                          students.reduce((sum, s) => sum + s.enrolledClubs.length, 0) /
+                          students.length
+                        ).toFixed(1)}
                       </span>
                     </div>
                   </div>
@@ -399,21 +411,21 @@ export default function CollegeAdminDashboard() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
 
 function AddClubForm({ onSubmit }: { onSubmit: (data: any) => void }) {
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    adminName: "",
-    adminEmail: "",
-  })
+    name: '',
+    description: '',
+    adminName: '',
+    adminEmail: '',
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSubmit(formData)
-  }
+    e.preventDefault();
+    onSubmit(formData);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -458,5 +470,5 @@ function AddClubForm({ onSubmit }: { onSubmit: (data: any) => void }) {
         Create Club & Admin
       </Button>
     </form>
-  )
+  );
 }

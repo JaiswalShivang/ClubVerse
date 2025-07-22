@@ -16,6 +16,7 @@ For more information, see GitHub's documentation on [privately reporting a secur
 ### ⏱️ Response Timeline
 
 We aim to respond to security reports according to the following timeline:
+
 - **Initial Acknowledgment**: Within 48 hours.
 - **Status Update**: Within 5 business days.
 - **Resolution**: Timeline will vary based on the severity and complexity of the issue.
@@ -23,17 +24,20 @@ We aim to respond to security reports according to the following timeline:
 ## 🔒 Security Measures
 
 ### Code Security
+
 - All code changes undergo security review during the pull request process.
 - We plan to use Dependabot for regular dependency updates.
 - We plan to implement automated security scanning for known vulnerabilities.
 
 ### Data Security
+
 - ClubVerse is designed to handle user data, including names, emails, and roles. We are committed to protecting this data.
 - **Authentication**: User authentication is planned to be handled by Firebase Authentication, providing a secure and robust system.
 - **Database**: User data will be stored in a secure database (like Firebase Firestore), and access will be protected by strict security rules.
 - **Data in Transit**: All communication between the client and server will be encrypted using HTTPS.
 
 ### Browser Security
+
 - We aim to implement a strong Content Security Policy (CSP).
 - We will enforce HTTPS-only access.
 - We will use secure cookie configurations and XSS protection headers.
@@ -48,11 +52,13 @@ We aim to respond to security reports according to the following timeline:
 ## 🛠️ Security Best Practices
 
 ### For Contributors
+
 1.  **Code Review**: Follow secure coding guidelines (e.g., OWASP Top 10). Validate all inputs and sanitize outputs.
 2.  **Dependencies**: Use only trusted packages and keep them up to date. Regularly audit dependencies for vulnerabilities.
 3.  **Testing**: Include tests for security-related functionality, such as permission checks.
 
 ### For Users
+
 1.  **Account Security**: Use a strong, unique password for your account. Enable multi-factor authentication if it becomes available.
 2.  **Data Safety**: Be mindful of the personal information you share in public club spaces.
 3.  **Browser Security**: Use a modern, updated web browser and report any suspicious behavior.
@@ -60,10 +66,12 @@ We aim to respond to security reports according to the following timeline:
 ## 🔐 Security Features
 
 ### Current Implementation
+
 - **Role-Based Access Control (RBAC)**: Access to different parts of the application is restricted based on user roles (Super Admin, College Admin, etc.).
 - **Input Validation**: Forms include basic validation for user-provided data.
 
 ### Planned Improvements
+
 - **Firebase Authentication**: Secure user login and session management.
 - **Firestore Security Rules**: Granular, rule-based access control for all database operations.
 - **API Rate Limiting**: To prevent abuse of backend resources.
@@ -72,12 +80,14 @@ We aim to respond to security reports according to the following timeline:
 ## 📋 Vulnerability Disclosure Policy
 
 ### Scope
+
 - Frontend application code (`app/`, `components/`, `hooks/`)
 - Authentication and authorization logic
 - Future backend API routes and database rules
 - Dependencies used by the project
 
 ### Out of Scope
+
 - Theoretical vulnerabilities without a proof of concept.
 - Social engineering attacks.
 - Denial of Service (DoS/DDoS) attacks.
@@ -91,4 +101,4 @@ We would like to thank all security researchers who help keep ClubVerse secure. 
 
 For security concerns, please use GitHub's private vulnerability reporting system.
 
-**Project Maintainer**: `your-username` on GitHub. 
+**Project Maintainer**: `your-username` on GitHub.

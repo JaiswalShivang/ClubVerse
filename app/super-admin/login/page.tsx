@@ -1,36 +1,36 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Shield, ArrowLeft } from "lucide-react"
-import { useAuth } from "@/hooks/useAuth"
-import Link from "next/link"
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Shield, ArrowLeft } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import Link from 'next/link';
 
 export default function SuperAdminLogin() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
-  const { signIn } = useAuth()
-  const router = useRouter()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     try {
-      await signIn(email, password, "super_admin")
-      router.push("/super-admin")
+      await signIn(email, password, 'super_admin');
+      router.push('/super-admin');
     } catch (error) {
-      console.error("Super admin login error:", error)
+      console.error('Super admin login error:', error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 flex items-center justify-center p-4">
@@ -72,7 +72,7 @@ export default function SuperAdminLogin() {
                 />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Authenticating..." : "Access Dashboard"}
+                {loading ? 'Authenticating...' : 'Access Dashboard'}
               </Button>
             </form>
 
@@ -85,5 +85,5 @@ export default function SuperAdminLogin() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

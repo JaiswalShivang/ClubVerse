@@ -1,175 +1,175 @@
-"use client"
+'use client';
 
-import { useAuth } from "@/hooks/useAuth"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import { Search, Users, Calendar, MessageCircle, Heart, Crown, Star, Trophy } from "lucide-react"
-import { Navbar } from "@/components/navbar"
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Search, Users, Calendar, MessageCircle, Heart, Crown, Star, Trophy } from 'lucide-react';
+import { Navbar } from '@/components/navbar';
 
 interface Club {
-  id: string
-  name: string
-  description: string
-  collegeName: string
-  memberCount: number
-  profileImageUrl?: string
-  isJoined?: boolean
-  userRole?: "member" | "lead" | "president" | "vice_president"
+  id: string;
+  name: string;
+  description: string;
+  collegeName: string;
+  memberCount: number;
+  profileImageUrl?: string;
+  isJoined?: boolean;
+  userRole?: 'member' | 'lead' | 'president' | 'vice_president';
 }
 
 interface Event {
-  id: string
-  title: string
-  clubName: string
-  date: string
-  time: string
-  location: string
+  id: string;
+  title: string;
+  clubName: string;
+  date: string;
+  time: string;
+  location: string;
 }
 
 export default function StudentDashboard() {
-  const { user, signOut } = useAuth()
-  const router = useRouter()
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCollege, setSelectedCollege] = useState("all")
-  const [clubs, setClubs] = useState<Club[]>([])
-  const [myClubs, setMyClubs] = useState<Club[]>([])
-  const [events, setEvents] = useState<Event[]>([])
+  const { user, signOut } = useAuth();
+  const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCollege, setSelectedCollege] = useState('all');
+  const [clubs, setClubs] = useState<Club[]>([]);
+  const [myClubs, setMyClubs] = useState<Club[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    if (!user || user.role !== "student") {
-      router.push("/")
-      return
+    if (!user || user.role !== 'student') {
+      router.push('/');
+      return;
     }
 
     // Mock data - clubs from different colleges
     const mockClubs: Club[] = [
       {
-        id: "1",
-        name: "Photography Club",
-        description: "Capture moments, create memories. Join us for photo walks and workshops.",
-        collegeName: "Tech University",
+        id: '1',
+        name: 'Photography Club',
+        description: 'Capture moments, create memories. Join us for photo walks and workshops.',
+        collegeName: 'Tech University',
         memberCount: 45,
-        isJoined: user.collegeName === "Tech University",
-        userRole: "member",
+        isJoined: user.collegeName === 'Tech University',
+        userRole: 'member',
       },
       {
-        id: "2",
-        name: "Debate Society",
-        description: "Sharpen your arguments and public speaking skills.",
-        collegeName: "Tech University",
+        id: '2',
+        name: 'Debate Society',
+        description: 'Sharpen your arguments and public speaking skills.',
+        collegeName: 'Tech University',
         memberCount: 32,
-        isJoined: user.collegeName === "Tech University",
-        userRole: "lead",
+        isJoined: user.collegeName === 'Tech University',
+        userRole: 'lead',
       },
       {
-        id: "3",
-        name: "Coding Club",
-        description: "Learn, code, and build amazing projects together.",
-        collegeName: "State College",
+        id: '3',
+        name: 'Coding Club',
+        description: 'Learn, code, and build amazing projects together.',
+        collegeName: 'State College',
         memberCount: 78,
         isJoined: false,
       },
       {
-        id: "4",
-        name: "Music Society",
-        description: "Express yourself through music and performances.",
-        collegeName: "Arts College",
+        id: '4',
+        name: 'Music Society',
+        description: 'Express yourself through music and performances.',
+        collegeName: 'Arts College',
         memberCount: 56,
         isJoined: false,
       },
-    ]
+    ];
 
     const mockEvents: Event[] = [
       {
-        id: "1",
-        title: "Photography Workshop",
-        clubName: "Photography Club",
-        date: "2024-01-15",
-        time: "2:00 PM",
-        location: "Art Building Room 101",
+        id: '1',
+        title: 'Photography Workshop',
+        clubName: 'Photography Club',
+        date: '2024-01-15',
+        time: '2:00 PM',
+        location: 'Art Building Room 101',
       },
       {
-        id: "2",
-        title: "Debate Competition",
-        clubName: "Debate Society",
-        date: "2024-01-20",
-        time: "6:00 PM",
-        location: "Main Auditorium",
+        id: '2',
+        title: 'Debate Competition',
+        clubName: 'Debate Society',
+        date: '2024-01-20',
+        time: '6:00 PM',
+        location: 'Main Auditorium',
       },
-    ]
+    ];
 
-    setClubs(mockClubs)
-    setMyClubs(mockClubs.filter((club) => club.isJoined))
-    setEvents(mockEvents)
-  }, [user, router])
+    setClubs(mockClubs);
+    setMyClubs(mockClubs.filter((club) => club.isJoined));
+    setEvents(mockEvents);
+  }, [user, router]);
 
   const handleJoinClub = (clubId: string) => {
-    const club = clubs.find((c) => c.id === clubId)
-    if (!club) return
+    const club = clubs.find((c) => c.id === clubId);
+    if (!club) return;
 
     // Only allow joining clubs from same college
     if (club.collegeName !== user?.collegeName && !club.isJoined) {
-      alert("You can only join clubs from your college!")
-      return
+      alert('You can only join clubs from your college!');
+      return;
     }
 
     setClubs((prev) =>
       prev.map((club) =>
         club.id === clubId
-          ? { ...club, isJoined: !club.isJoined, userRole: club.isJoined ? undefined : "member" }
+          ? { ...club, isJoined: !club.isJoined, userRole: club.isJoined ? undefined : 'member' }
           : club,
       ),
-    )
+    );
 
     setMyClubs((prev) => {
-      const updatedClub = clubs.find((c) => c.id === clubId)
+      const updatedClub = clubs.find((c) => c.id === clubId);
       if (updatedClub && !updatedClub.isJoined) {
-        return [...prev, { ...updatedClub, isJoined: true, userRole: "member" }]
+        return [...prev, { ...updatedClub, isJoined: true, userRole: 'member' }];
       }
-      return prev.filter((c) => c.id !== clubId)
-    })
-  }
+      return prev.filter((c) => c.id !== clubId);
+    });
+  };
 
   const getRoleIcon = (role?: string) => {
     switch (role) {
-      case "president":
-        return <Crown className="h-4 w-4 text-yellow-600" />
-      case "vice_president":
-        return <Star className="h-4 w-4 text-blue-600" />
-      case "lead":
-        return <Trophy className="h-4 w-4 text-green-600" />
+      case 'president':
+        return <Crown className="h-4 w-4 text-yellow-600" />;
+      case 'vice_president':
+        return <Star className="h-4 w-4 text-blue-600" />;
+      case 'lead':
+        return <Trophy className="h-4 w-4 text-green-600" />;
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   const getRoleBadge = (role?: string) => {
     switch (role) {
-      case "president":
-        return <Badge className="bg-yellow-100 text-yellow-800">President</Badge>
-      case "vice_president":
-        return <Badge className="bg-blue-100 text-blue-800">Vice President</Badge>
-      case "lead":
-        return <Badge className="bg-green-100 text-green-800">Lead</Badge>
+      case 'president':
+        return <Badge className="bg-yellow-100 text-yellow-800">President</Badge>;
+      case 'vice_president':
+        return <Badge className="bg-blue-100 text-blue-800">Vice President</Badge>;
+      case 'lead':
+        return <Badge className="bg-green-100 text-green-800">Lead</Badge>;
       default:
-        return <Badge variant="secondary">Member</Badge>
+        return <Badge variant="secondary">Member</Badge>;
     }
-  }
+  };
 
   const filteredClubs = clubs.filter((club) => {
     const matchesSearch =
       club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      club.description.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCollege = selectedCollege === "all" || club.collegeName === selectedCollege
-    return matchesSearch && matchesCollege
-  })
+      club.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCollege = selectedCollege === 'all' || club.collegeName === selectedCollege;
+    return matchesSearch && matchesCollege;
+  });
 
-  if (!user) return null
+  if (!user) return null;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -310,7 +310,7 @@ export default function StudentDashboard() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">College</label>
-                  <Input value={user.collegeName || ""} readOnly />
+                  <Input value={user.collegeName || ''} readOnly />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Role</label>
@@ -323,7 +323,7 @@ export default function StudentDashboard() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
 
 function ClubCard({
@@ -332,22 +332,22 @@ function ClubCard({
   canJoin,
   userCollege,
 }: {
-  club: Club
-  onJoin: () => void
-  canJoin: boolean
-  userCollege?: string
+  club: Club;
+  onJoin: () => void;
+  canJoin: boolean;
+  userCollege?: string;
 }) {
   const getJoinButtonText = () => {
-    if (club.isJoined) return "Leave"
-    if (canJoin) return "Join"
-    return `Different College`
-  }
+    if (club.isJoined) return 'Leave';
+    if (canJoin) return 'Join';
+    return `Different College`;
+  };
 
   const getJoinButtonVariant = () => {
-    if (club.isJoined) return "outline"
-    if (canJoin) return "default"
-    return "secondary"
-  }
+    if (club.isJoined) return 'outline';
+    if (canJoin) return 'default';
+    return 'secondary';
+  };
 
   return (
     <Card className="hover:shadow-lg transition-shadow">
@@ -374,7 +374,12 @@ function ClubCard({
             <Users className="h-4 w-4 mr-1" />
             {club.memberCount} members
           </div>
-          <Button size="sm" variant={getJoinButtonVariant()} onClick={onJoin} disabled={!canJoin && !club.isJoined}>
+          <Button
+            size="sm"
+            variant={getJoinButtonVariant()}
+            onClick={onJoin}
+            disabled={!canJoin && !club.isJoined}
+          >
             {club.isJoined ? (
               <>
                 <Heart className="h-4 w-4 mr-2 fill-current" />
@@ -390,5 +395,5 @@ function ClubCard({
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
