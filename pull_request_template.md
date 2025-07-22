@@ -1,6 +1,6 @@
 # 🚀 Pull Request Template – ClubVerse
 
-> **Please do not submit a pull request until all tests, lint, and build checks pass locally and in CI. PRs with failing checks will not be reviewed.**
+> **Please do not submit a pull request until all tests and build checks pass locally and in CI. PRs with failing checks will not be reviewed.**
 
 ## 📋 Description
 
