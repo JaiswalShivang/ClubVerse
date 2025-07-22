@@ -167,25 +167,6 @@ ClubVerse/
 
 *(placeholder: Add screenshots of the application here. For example:)*
 
-<table>
-<tr>
-  <td><img src="https://via.placeholder.com/400x250.png?text=Super+Admin+Dashboard" alt="Super Admin Dashboard"></td>
-  <td><img src="https://via.placeholder.com/400x250.png?text=Club+Page" alt="Club Page"></td>
-</tr>
-<tr>
-  <td><b>Super Admin Dashboard</b></td>
-  <td><b>Club Page</b></td>
-</tr>
-<tr>
-  <td><img src="https://via.placeholder.com/400x250.png?text=Student+Dashboard" alt="Student Dashboard"></td>
-  <td><img src="https://via.placeholder.com/400x250.png?text=Login+Page" alt="Login Page"></td>
-</tr>
-<tr>
-  <td><b>Student Dashboard</b></td>
-  <td><b>Login Page</b></td>
-</tr>
-</table>
-
 ---
 
 ## 🚀 **Quick Start**
