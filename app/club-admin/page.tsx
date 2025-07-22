@@ -1,15 +1,15 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useAuth } from "@/hooks/useAuth"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
   DialogContent,
@@ -17,10 +17,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Users,
   Calendar,
@@ -33,163 +39,165 @@ import {
   Star,
   Trophy,
   UserCheck,
-} from "lucide-react"
-import { Navbar } from "@/components/navbar"
+} from 'lucide-react';
+import { Navbar } from '@/components/navbar';
 
 interface ClubMember {
-  id: string
-  name: string
-  email: string
-  role: "member" | "lead" | "president" | "vice_president"
-  joinedAt: string
-  isActive: boolean
+  id: string;
+  name: string;
+  email: string;
+  role: 'member' | 'lead' | 'president' | 'vice_president';
+  joinedAt: string;
+  isActive: boolean;
 }
 
 interface ClubEvent {
-  id: string
-  title: string
-  description: string
-  date: string
-  time: string
-  location: string
-  imageUrl?: string
-  attendees: number
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  location: string;
+  imageUrl?: string;
+  attendees: number;
 }
 
 export default function ClubAdminDashboard() {
-  const { user, signOut } = useAuth()
-  const router = useRouter()
-  const [members, setMembers] = useState<ClubMember[]>([])
-  const [events, setEvents] = useState<ClubEvent[]>([])
-  const [searchTerm, setSearchTerm] = useState("")
-  const [isAddEventOpen, setIsAddEventOpen] = useState(false)
+  const { user, signOut } = useAuth();
+  const router = useRouter();
+  const [members, setMembers] = useState<ClubMember[]>([]);
+  const [events, setEvents] = useState<ClubEvent[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isAddEventOpen, setIsAddEventOpen] = useState(false);
 
   useEffect(() => {
-    if (!user || user.role !== "club_admin") {
-      router.push("/")
-      return
+    if (!user || user.role !== 'club_admin') {
+      router.push('/');
+      return;
     }
 
     // Mock data
     const mockMembers: ClubMember[] = [
       {
-        id: "1",
-        name: "Alice Johnson",
-        email: "alice@student.techuni.edu",
-        role: "president",
-        joinedAt: "2024-01-10",
+        id: '1',
+        name: 'Alice Johnson',
+        email: 'alice@student.techuni.edu',
+        role: 'president',
+        joinedAt: '2024-01-10',
         isActive: true,
       },
       {
-        id: "2",
-        name: "Bob Smith",
-        email: "bob@student.techuni.edu",
-        role: "vice_president",
-        joinedAt: "2024-01-12",
+        id: '2',
+        name: 'Bob Smith',
+        email: 'bob@student.techuni.edu',
+        role: 'vice_president',
+        joinedAt: '2024-01-12',
         isActive: true,
       },
       {
-        id: "3",
-        name: "Carol Davis",
-        email: "carol@student.techuni.edu",
-        role: "lead",
-        joinedAt: "2024-01-15",
+        id: '3',
+        name: 'Carol Davis',
+        email: 'carol@student.techuni.edu',
+        role: 'lead',
+        joinedAt: '2024-01-15',
         isActive: true,
       },
       {
-        id: "4",
-        name: "David Wilson",
-        email: "david@student.techuni.edu",
-        role: "member",
-        joinedAt: "2024-01-18",
+        id: '4',
+        name: 'David Wilson',
+        email: 'david@student.techuni.edu',
+        role: 'member',
+        joinedAt: '2024-01-18',
         isActive: true,
       },
       {
-        id: "5",
-        name: "Emma Brown",
-        email: "emma@student.techuni.edu",
-        role: "member",
-        joinedAt: "2024-01-20",
+        id: '5',
+        name: 'Emma Brown',
+        email: 'emma@student.techuni.edu',
+        role: 'member',
+        joinedAt: '2024-01-20',
         isActive: false,
       },
-    ]
+    ];
 
     const mockEvents: ClubEvent[] = [
       {
-        id: "1",
-        title: "Photography Workshop",
-        description: "Learn advanced photography techniques with professional equipment",
-        date: "2024-01-25",
-        time: "2:00 PM",
-        location: "Art Building Room 101",
+        id: '1',
+        title: 'Photography Workshop',
+        description: 'Learn advanced photography techniques with professional equipment',
+        date: '2024-01-25',
+        time: '2:00 PM',
+        location: 'Art Building Room 101',
         attendees: 25,
       },
       {
-        id: "2",
-        title: "Photo Walk Downtown",
-        description: "Explore the city and capture urban photography",
-        date: "2024-02-01",
-        time: "10:00 AM",
-        location: "Downtown Square",
+        id: '2',
+        title: 'Photo Walk Downtown',
+        description: 'Explore the city and capture urban photography',
+        date: '2024-02-01',
+        time: '10:00 AM',
+        location: 'Downtown Square',
         attendees: 18,
       },
-    ]
+    ];
 
-    setMembers(mockMembers)
-    setEvents(mockEvents)
-  }, [user, router])
+    setMembers(mockMembers);
+    setEvents(mockEvents);
+  }, [user, router]);
 
-  const handleRoleChange = (memberId: string, newRole: ClubMember["role"]) => {
-    setMembers((prev) => prev.map((member) => (member.id === memberId ? { ...member, role: newRole } : member)))
-  }
+  const handleRoleChange = (memberId: string, newRole: ClubMember['role']) => {
+    setMembers((prev) =>
+      prev.map((member) => (member.id === memberId ? { ...member, role: newRole } : member)),
+    );
+  };
 
   const handleRemoveMember = (memberId: string) => {
-    setMembers((prev) => prev.filter((member) => member.id !== memberId))
-  }
+    setMembers((prev) => prev.filter((member) => member.id !== memberId));
+  };
 
   const handleAddEvent = (eventData: any) => {
     const newEvent: ClubEvent = {
-      id: "event-" + Date.now(),
+      id: 'event-' + Date.now(),
       ...eventData,
       attendees: 0,
-    }
-    setEvents((prev) => [...prev, newEvent])
-    setIsAddEventOpen(false)
-  }
+    };
+    setEvents((prev) => [...prev, newEvent]);
+    setIsAddEventOpen(false);
+  };
 
-  const getRoleIcon = (role: ClubMember["role"]) => {
+  const getRoleIcon = (role: ClubMember['role']) => {
     switch (role) {
-      case "president":
-        return <Crown className="h-4 w-4 text-yellow-600" />
-      case "vice_president":
-        return <Star className="h-4 w-4 text-blue-600" />
-      case "lead":
-        return <Trophy className="h-4 w-4 text-green-600" />
+      case 'president':
+        return <Crown className="h-4 w-4 text-yellow-600" />;
+      case 'vice_president':
+        return <Star className="h-4 w-4 text-blue-600" />;
+      case 'lead':
+        return <Trophy className="h-4 w-4 text-green-600" />;
       default:
-        return <UserCheck className="h-4 w-4 text-gray-600" />
+        return <UserCheck className="h-4 w-4 text-gray-600" />;
     }
-  }
+  };
 
-  const getRoleBadge = (role: ClubMember["role"]) => {
+  const getRoleBadge = (role: ClubMember['role']) => {
     switch (role) {
-      case "president":
-        return <Badge className="bg-yellow-100 text-yellow-800">President</Badge>
-      case "vice_president":
-        return <Badge className="bg-blue-100 text-blue-800">Vice President</Badge>
-      case "lead":
-        return <Badge className="bg-green-100 text-green-800">Lead</Badge>
+      case 'president':
+        return <Badge className="bg-yellow-100 text-yellow-800">President</Badge>;
+      case 'vice_president':
+        return <Badge className="bg-blue-100 text-blue-800">Vice President</Badge>;
+      case 'lead':
+        return <Badge className="bg-green-100 text-green-800">Lead</Badge>;
       default:
-        return <Badge variant="secondary">Member</Badge>
+        return <Badge variant="secondary">Member</Badge>;
     }
-  }
+  };
 
   const filteredMembers = members.filter(
     (member) =>
       member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       member.email.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  );
 
-  if (!user) return null
+  if (!user) return null;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -243,7 +251,9 @@ export default function ClubAdminDashboard() {
               <Crown className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{members.filter((m) => m.role !== "member").length}</div>
+              <div className="text-2xl font-bold">
+                {members.filter((m) => m.role !== 'member').length}
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -304,15 +314,19 @@ export default function ClubAdminDashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">{getRoleBadge(member.role)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <Badge variant={member.isActive ? "default" : "secondary"}>
-                          {member.isActive ? "Active" : "Inactive"}
+                        <Badge variant={member.isActive ? 'default' : 'secondary'}>
+                          {member.isActive ? 'Active' : 'Inactive'}
                         </Badge>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{member.joinedAt}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {member.joinedAt}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                         <Select
                           value={member.role}
-                          onValueChange={(value: ClubMember["role"]) => handleRoleChange(member.id, value)}
+                          onValueChange={(value: ClubMember['role']) =>
+                            handleRoleChange(member.id, value)
+                          }
                         >
                           <SelectTrigger className="w-32">
                             <SelectValue />
@@ -324,7 +338,11 @@ export default function ClubAdminDashboard() {
                             <SelectItem value="president">President</SelectItem>
                           </SelectContent>
                         </Select>
-                        <Button size="sm" variant="outline" onClick={() => handleRemoveMember(member.id)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleRemoveMember(member.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </td>
@@ -404,7 +422,8 @@ export default function ClubAdminDashboard() {
                 <div className="space-y-4">
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <p className="text-sm text-gray-600 mb-2">
-                      <strong>Alice Johnson:</strong> Hey everyone! Don't forget about tomorrow's workshop!
+                      <strong>Alice Johnson:</strong> Hey everyone! Don't forget about tomorrow's
+                      workshop!
                     </p>
                     <div className="flex justify-between items-center text-xs text-gray-500">
                       <span>2 hours ago</span>
@@ -415,7 +434,8 @@ export default function ClubAdminDashboard() {
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <p className="text-sm text-gray-600 mb-2">
-                      <strong>Bob Smith:</strong> Looking forward to it! Should we bring our own cameras?
+                      <strong>Bob Smith:</strong> Looking forward to it! Should we bring our own
+                      cameras?
                     </p>
                     <div className="flex justify-between items-center text-xs text-gray-500">
                       <span>1 hour ago</span>
@@ -462,22 +482,22 @@ export default function ClubAdminDashboard() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
 
 function AddEventForm({ onSubmit }: { onSubmit: (data: any) => void }) {
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    date: "",
-    time: "",
-    location: "",
-  })
+    title: '',
+    description: '',
+    date: '',
+    time: '',
+    location: '',
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSubmit(formData)
-  }
+    e.preventDefault();
+    onSubmit(formData);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -534,5 +554,5 @@ function AddEventForm({ onSubmit }: { onSubmit: (data: any) => void }) {
         Create Event
       </Button>
     </form>
-  )
+  );
 }

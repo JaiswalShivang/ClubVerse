@@ -1,15 +1,15 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useAuth } from "@/hooks/useAuth"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
   DialogContent,
@@ -17,182 +17,192 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Building2, Users, BarChart3, Plus, Search, Edit, Trash2, LogOut, Crown } from "lucide-react"
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Building2,
+  Users,
+  BarChart3,
+  Plus,
+  Search,
+  Edit,
+  Trash2,
+  LogOut,
+  Crown,
+} from 'lucide-react';
 
 interface College {
-  id: string
-  name: string
-  location: string
-  description: string
-  adminId: string
-  adminName: string
-  clubCount: number
-  studentCount: number
-  createdAt: string
+  id: string;
+  name: string;
+  location: string;
+  description: string;
+  adminId: string;
+  adminName: string;
+  clubCount: number;
+  studentCount: number;
+  createdAt: string;
 }
 
 interface Club {
-  id: string
-  name: string
-  description: string
-  collegeId: string
-  collegeName: string
-  adminId: string
-  adminName: string
-  memberCount: number
-  createdAt: string
+  id: string;
+  name: string;
+  description: string;
+  collegeId: string;
+  collegeName: string;
+  adminId: string;
+  adminName: string;
+  memberCount: number;
+  createdAt: string;
 }
 
 interface User {
-  id: string
-  name: string
-  email: string
-  role: string
-  collegeName?: string
-  clubName?: string
-  createdAt: string
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  collegeName?: string;
+  clubName?: string;
+  createdAt: string;
 }
 
 export default function SuperAdminDashboard() {
-  const { user, signOut } = useAuth()
-  const router = useRouter()
-  const [colleges, setColleges] = useState<College[]>([])
-  const [clubs, setClubs] = useState<Club[]>([])
-  const [users, setUsers] = useState<User[]>([])
-  const [searchTerm, setSearchTerm] = useState("")
-  const [isAddCollegeOpen, setIsAddCollegeOpen] = useState(false)
-  const [isAddClubOpen, setIsAddClubOpen] = useState(false)
+  const { user, signOut } = useAuth();
+  const router = useRouter();
+  const [colleges, setColleges] = useState<College[]>([]);
+  const [clubs, setClubs] = useState<Club[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isAddCollegeOpen, setIsAddCollegeOpen] = useState(false);
+  const [isAddClubOpen, setIsAddClubOpen] = useState(false);
 
   useEffect(() => {
-    if (!user || user.role !== "super_admin") {
-      router.push("/")
-      return
+    if (!user || user.role !== 'super_admin') {
+      router.push('/');
+      return;
     }
 
     // Mock data
     const mockColleges: College[] = [
       {
-        id: "college-1",
-        name: "Tech University",
-        location: "San Francisco, CA",
-        description: "Leading technology university with innovative programs",
-        adminId: "admin-1",
-        adminName: "John Smith",
+        id: 'college-1',
+        name: 'Tech University',
+        location: 'San Francisco, CA',
+        description: 'Leading technology university with innovative programs',
+        adminId: 'admin-1',
+        adminName: 'John Smith',
         clubCount: 25,
         studentCount: 1200,
-        createdAt: "2024-01-01",
+        createdAt: '2024-01-01',
       },
       {
-        id: "college-2",
-        name: "State College",
-        location: "Austin, TX",
-        description: "Comprehensive state college with diverse academic offerings",
-        adminId: "admin-2",
-        adminName: "Sarah Johnson",
+        id: 'college-2',
+        name: 'State College',
+        location: 'Austin, TX',
+        description: 'Comprehensive state college with diverse academic offerings',
+        adminId: 'admin-2',
+        adminName: 'Sarah Johnson',
         clubCount: 18,
         studentCount: 800,
-        createdAt: "2024-01-05",
+        createdAt: '2024-01-05',
       },
-    ]
+    ];
 
     const mockClubs: Club[] = [
       {
-        id: "club-1",
-        name: "Photography Club",
-        description: "Capture moments, create memories",
-        collegeId: "college-1",
-        collegeName: "Tech University",
-        adminId: "club-admin-1",
-        adminName: "Mike Wilson",
+        id: 'club-1',
+        name: 'Photography Club',
+        description: 'Capture moments, create memories',
+        collegeId: 'college-1',
+        collegeName: 'Tech University',
+        adminId: 'club-admin-1',
+        adminName: 'Mike Wilson',
         memberCount: 45,
-        createdAt: "2024-01-10",
+        createdAt: '2024-01-10',
       },
       {
-        id: "club-2",
-        name: "Debate Society",
-        description: "Sharpen your arguments and public speaking",
-        collegeId: "college-1",
-        collegeName: "Tech University",
-        adminId: "club-admin-2",
-        adminName: "Emma Davis",
+        id: 'club-2',
+        name: 'Debate Society',
+        description: 'Sharpen your arguments and public speaking',
+        collegeId: 'college-1',
+        collegeName: 'Tech University',
+        adminId: 'club-admin-2',
+        adminName: 'Emma Davis',
         memberCount: 32,
-        createdAt: "2024-01-12",
+        createdAt: '2024-01-12',
       },
       {
-        id: "club-3",
-        name: "Coding Club",
-        description: "Learn, code, and build amazing projects",
-        collegeId: "college-2",
-        collegeName: "State College",
-        adminId: "club-admin-3",
-        adminName: "Alex Brown",
+        id: 'club-3',
+        name: 'Coding Club',
+        description: 'Learn, code, and build amazing projects',
+        collegeId: 'college-2',
+        collegeName: 'State College',
+        adminId: 'club-admin-3',
+        adminName: 'Alex Brown',
         memberCount: 78,
-        createdAt: "2024-01-15",
+        createdAt: '2024-01-15',
       },
-    ]
+    ];
 
     const mockUsers: User[] = [
       {
-        id: "admin-1",
-        name: "John Smith",
-        email: "john@techuni.edu",
-        role: "college_admin",
-        collegeName: "Tech University",
-        createdAt: "2024-01-01",
+        id: 'admin-1',
+        name: 'John Smith',
+        email: 'john@techuni.edu',
+        role: 'college_admin',
+        collegeName: 'Tech University',
+        createdAt: '2024-01-01',
       },
       {
-        id: "club-admin-1",
-        name: "Mike Wilson",
-        email: "mike@techuni.edu",
-        role: "club_admin",
-        collegeName: "Tech University",
-        clubName: "Photography Club",
-        createdAt: "2024-01-10",
+        id: 'club-admin-1',
+        name: 'Mike Wilson',
+        email: 'mike@techuni.edu',
+        role: 'club_admin',
+        collegeName: 'Tech University',
+        clubName: 'Photography Club',
+        createdAt: '2024-01-10',
       },
       {
-        id: "student-1",
-        name: "Alice Cooper",
-        email: "alice@student.techuni.edu",
-        role: "student",
-        collegeName: "Tech University",
-        createdAt: "2024-01-20",
+        id: 'student-1',
+        name: 'Alice Cooper',
+        email: 'alice@student.techuni.edu',
+        role: 'student',
+        collegeName: 'Tech University',
+        createdAt: '2024-01-20',
       },
-    ]
+    ];
 
-    setColleges(mockColleges)
-    setClubs(mockClubs)
-    setUsers(mockUsers)
-  }, [user, router])
+    setColleges(mockColleges);
+    setClubs(mockClubs);
+    setUsers(mockUsers);
+  }, [user, router]);
 
   const handleAddCollege = (collegeData: any) => {
     const newCollege: College = {
-      id: "college-" + Date.now(),
+      id: 'college-' + Date.now(),
       ...collegeData,
-      adminId: "admin-" + Date.now(),
+      adminId: 'admin-' + Date.now(),
       clubCount: 0,
       studentCount: 0,
-      createdAt: new Date().toISOString().split("T")[0],
-    }
-    setColleges((prev) => [...prev, newCollege])
-    setIsAddCollegeOpen(false)
-  }
+      createdAt: new Date().toISOString().split('T')[0],
+    };
+    setColleges((prev) => [...prev, newCollege]);
+    setIsAddCollegeOpen(false);
+  };
 
   const handleAddClub = (clubData: any) => {
     const newClub: Club = {
-      id: "club-" + Date.now(),
+      id: 'club-' + Date.now(),
       ...clubData,
-      adminId: "club-admin-" + Date.now(),
+      adminId: 'club-admin-' + Date.now(),
       memberCount: 0,
-      createdAt: new Date().toISOString().split("T")[0],
-    }
-    setClubs((prev) => [...prev, newClub])
-    setIsAddClubOpen(false)
-  }
+      createdAt: new Date().toISOString().split('T')[0],
+    };
+    setClubs((prev) => [...prev, newClub]);
+    setIsAddClubOpen(false);
+  };
 
-  if (!user) return null
+  if (!user) return null;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -251,7 +261,9 @@ export default function SuperAdminDashboard() {
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{clubs.reduce((sum, club) => sum + club.memberCount, 0)}</div>
+              <div className="text-2xl font-bold">
+                {clubs.reduce((sum, club) => sum + club.memberCount, 0)}
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -285,7 +297,9 @@ export default function SuperAdminDashboard() {
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>Add New College</DialogTitle>
-                    <DialogDescription>Create a new college and generate admin credentials</DialogDescription>
+                    <DialogDescription>
+                      Create a new college and generate admin credentials
+                    </DialogDescription>
                   </DialogHeader>
                   <AddCollegeForm onSubmit={handleAddCollege} />
                 </DialogContent>
@@ -458,20 +472,22 @@ export default function SuperAdminDashboard() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <Badge
                             variant={
-                              user.role === "college_admin"
-                                ? "default"
-                                : user.role === "club_admin"
-                                  ? "secondary"
-                                  : "outline"
+                              user.role === 'college_admin'
+                                ? 'default'
+                                : user.role === 'club_admin'
+                                  ? 'secondary'
+                                  : 'outline'
                             }
                           >
-                            {user.role.replace("_", " ")}
+                            {user.role.replace('_', ' ')}
                           </Badge>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {user.clubName || user.collegeName || "-"}
+                          {user.clubName || user.collegeName || '-'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.createdAt}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {user.createdAt}
+                        </td>
                       </tr>
                     ))}
                 </tbody>
@@ -509,22 +525,22 @@ export default function SuperAdminDashboard() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
 
 function AddCollegeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
   const [formData, setFormData] = useState({
-    name: "",
-    location: "",
-    description: "",
-    adminName: "",
-    adminEmail: "",
-  })
+    name: '',
+    location: '',
+    description: '',
+    adminName: '',
+    adminEmail: '',
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSubmit(formData)
-  }
+    e.preventDefault();
+    onSubmit(formData);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -578,26 +594,32 @@ function AddCollegeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
         Create College & Admin
       </Button>
     </form>
-  )
+  );
 }
 
-function AddClubForm({ colleges, onSubmit }: { colleges: College[]; onSubmit: (data: any) => void }) {
+function AddClubForm({
+  colleges,
+  onSubmit,
+}: {
+  colleges: College[];
+  onSubmit: (data: any) => void;
+}) {
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    collegeId: "",
-    adminName: "",
-    adminEmail: "",
-  })
+    name: '',
+    description: '',
+    collegeId: '',
+    adminName: '',
+    adminEmail: '',
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const selectedCollege = colleges.find((c) => c.id === formData.collegeId)
+    e.preventDefault();
+    const selectedCollege = colleges.find((c) => c.id === formData.collegeId);
     onSubmit({
       ...formData,
-      collegeName: selectedCollege?.name || "",
-    })
-  }
+      collegeName: selectedCollege?.name || '',
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -659,5 +681,5 @@ function AddClubForm({ colleges, onSubmit }: { colleges: College[]; onSubmit: (d
         Create Club & Admin
       </Button>
     </form>
-  )
+  );
 }

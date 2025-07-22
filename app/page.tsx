@@ -1,47 +1,47 @@
-"use client"
+'use client';
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, MessageCircle, Calendar, Trophy, Star, Crown } from "lucide-react"
-import { useAuth } from "@/hooks/useAuth"
-import { Navbar } from "@/components/navbar"
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Users, MessageCircle, Calendar, Trophy, Star, Crown } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { Navbar } from '@/components/navbar';
 
 export default function HomePage() {
-  const { user, loading } = useAuth()
-  const router = useRouter()
+  const { user, loading } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     if (!loading && user) {
       switch (user.role) {
-        case "super_admin":
-          router.push("/super-admin")
-          break
-        case "college_admin":
-          router.push("/college-admin")
-          break
-        case "club_admin":
-          router.push("/club-admin")
-          break
-        case "student":
-          router.push("/dashboard")
-          break
+        case 'super_admin':
+          router.push('/super-admin');
+          break;
+        case 'college_admin':
+          router.push('/college-admin');
+          break;
+        case 'club_admin':
+          router.push('/club-admin');
+          break;
+        case 'student':
+          router.push('/dashboard');
+          break;
         default:
-          break
+          break;
       }
     }
-  }, [user, loading, router])
+  }, [user, loading, router]);
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
       </div>
-    )
+    );
   }
 
   if (user) {
-    return null
+    return null;
   }
 
   return (
@@ -51,10 +51,12 @@ export default function HomePage() {
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">Your College's Universe of Clubs</h1>
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            Your College's Universe of Clubs
+          </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Connect with like-minded students, discover amazing clubs, participate in events, and build lasting
-            relationships in your college community.
+            Connect with like-minded students, discover amazing clubs, participate in events, and
+            build lasting relationships in your college community.
           </p>
         </div>
 
@@ -64,7 +66,9 @@ export default function HomePage() {
             <CardHeader>
               <Users className="h-12 w-12 text-blue-600 mx-auto mb-4" />
               <CardTitle>Join Clubs</CardTitle>
-              <CardDescription>Discover and join clubs that match your interests from your college</CardDescription>
+              <CardDescription>
+                Discover and join clubs that match your interests from your college
+              </CardDescription>
             </CardHeader>
           </Card>
 
@@ -72,7 +76,9 @@ export default function HomePage() {
             <CardHeader>
               <MessageCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
               <CardTitle>Real-time Chat</CardTitle>
-              <CardDescription>Connect with club members through dedicated chat rooms</CardDescription>
+              <CardDescription>
+                Connect with club members through dedicated chat rooms
+              </CardDescription>
             </CardHeader>
           </Card>
 
@@ -80,7 +86,9 @@ export default function HomePage() {
             <CardHeader>
               <Calendar className="h-12 w-12 text-purple-600 mx-auto mb-4" />
               <CardTitle>Events & Activities</CardTitle>
-              <CardDescription>Stay updated with club events and participate in activities</CardDescription>
+              <CardDescription>
+                Stay updated with club events and participate in activities
+              </CardDescription>
             </CardHeader>
           </Card>
 
@@ -88,7 +96,9 @@ export default function HomePage() {
             <CardHeader>
               <Crown className="h-12 w-12 text-yellow-600 mx-auto mb-4" />
               <CardTitle>Leadership Roles</CardTitle>
-              <CardDescription>Take on leadership roles like President, Vice President, or Lead</CardDescription>
+              <CardDescription>
+                Take on leadership roles like President, Vice President, or Lead
+              </CardDescription>
             </CardHeader>
           </Card>
         </div>
@@ -145,5 +155,5 @@ export default function HomePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

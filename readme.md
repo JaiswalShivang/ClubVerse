@@ -1,7 +1,8 @@
 <div align="center">
 
 # 🌟 **ClubVerse** 🌟
-### *Your College's Universe of Clubs*
+
+### _Your College's Universe of Clubs_
 
 [![Build Status](https://img.shields.io/badge/build-passing-success?style=flat-square)](https://github.com/your-username/clubverse/actions)
 [![Next.js](https://img.shields.io/badge/Next.js-15.2.4-blue?style=flat-square)](https://nextjs.org/)
@@ -30,14 +31,14 @@ ClubVerse is a comprehensive, all-in-one platform designed to streamline club ma
 - **Admin & Analytics**: Dashboards for tracking user activity, engagement metrics, and generating reports.
 - **Discovery & Recommendation**: An intelligent system to help students find clubs based on their interests.
 
-> *"Connect, engage, and thrive with your college clubs!"*
+> _"Connect, engage, and thrive with your college clubs!"_
 
 <div align="center">
 
 ### 🚀 **Help Us Build The Future of College Communities!**
 
 **Believe in our mission? You're exactly who we're looking for!** ✨
-*Help students and colleges everywhere by contributing to a platform that matters.* 💝
+_Help students and colleges everywhere by contributing to a platform that matters._ 💝
 
 <a href="https://github.com/your-username/clubverse">
   <img src="https://img.shields.io/badge/⭐%20Star%20this%20repo-Support%20Our%20Mission!-yellow?style=for-the-badge&logo=github" alt="Star this repo" />
@@ -54,6 +55,7 @@ ClubVerse is a comprehensive, all-in-one platform designed to streamline club ma
 ---
 
 ## 📚 **Table of Contents**
+
 1. [✨ Features](#-features)
 2. [🦾 Tech Stack](#-tech-stack)
 3. [📂 Project Structure](#-project-structure)
@@ -71,12 +73,14 @@ ClubVerse is a comprehensive, all-in-one platform designed to streamline club ma
 ## ✨ **Features**
 
 ### 🧑‍💼 **Role-Based Dashboards**
+
 - **Super Admin**: Manages the entire platform, oversees all colleges.
 - **College Admin**: Manages all clubs within a specific college, handles student registrations.
 - **Club Admin**: Manages club members, creates events, and moderates chat channels.
 - **Student**: Discovers and joins clubs, participates in events, and chats with members.
 
 ### 🏛️ **Club Core System**
+
 - **Club Profiles**: Create and customize profiles for each club with descriptions, tags, and branding.
 - **Role Management**: Assign roles like President, Vice-President, or custom roles to members.
 - **Group Chats**: Real-time, topic-based chat channels for each club.
@@ -84,12 +88,14 @@ ClubVerse is a comprehensive, all-in-one platform designed to streamline club ma
 - **Media Sharing**: Securely share files, images, and links within chat channels.
 
 ### 📅 **Event System & Notifications**
+
 - **Event Creation**: A simple interface for creating single or recurring events.
 - **RSVP Tracking**: Easily track who is attending your events.
 - **Calendar Integration**: (Planned) Sync events with Google Calendar or iCal.
 - **Push & Email Alerts**: (Planned) Automated notifications for event reminders, announcements, and new messages.
 
 ### 🛠️ **Admin Tools & Analytics**
+
 - **Metrics Dashboard**: (Planned) Track key metrics like user activity, club growth, and event attendance.
 - **Sponsorship Tracking**: (Planned) Tools to manage club sponsorships.
 - **Certificate Generation**: (Planned) Automatically generate certificates of participation or leadership.
@@ -99,6 +105,7 @@ ClubVerse is a comprehensive, all-in-one platform designed to streamline club ma
 ## 🦾 **Tech Stack**
 
 ### 🌐 **Frontend Technologies**
+
 - **Framework**: Next.js (React)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
@@ -108,12 +115,14 @@ ClubVerse is a comprehensive, all-in-one platform designed to streamline club ma
 - **State Management**: React Context API
 
 ### 🛠️ **Development Tools**
+
 - **Package Manager**: pnpm / npm
 - **Code Quality**: ESLint, Prettier (planned)
 - **Version Control**: Git
 - **Deployment**: Vercel
 
 ### 🔧 **Planned Future Enhancements**
+
 - **Authentication**: Firebase Authentication
 - **Database**: Firebase Firestore / PostgreSQL
 - **Real-time Chat**: WebSocket-based solution
@@ -165,7 +174,7 @@ ClubVerse/
 
 ## 📸 **Screenshots**
 
-*(placeholder: Add screenshots of the application here. For example:)*
+_(placeholder: Add screenshots of the application here. For example:)_
 
 <table>
 <tr>
@@ -203,6 +212,7 @@ See the [Detailed Setup](#-detailed-setup) section for full instructions.
 ## 👨‍🔧 **Detailed Setup**
 
 ### **Prerequisites**
+
 - **Node.js** (v18.0.0 or higher)
 - **pnpm** (or npm/yarn) package manager
 - **Git** for version control
@@ -210,26 +220,32 @@ See the [Detailed Setup](#-detailed-setup) section for full instructions.
 ### **Installation Steps**
 
 1.  **Clone the Repository**
+
     ```bash
     git clone https://github.com/your-username/clubverse.git
     ```
 
 2.  **Navigate to Project Directory**
+
     ```bash
     cd clubverse
     ```
 
 3.  **Install Dependencies**
     Using pnpm (recommended):
+
     ```bash
     pnpm install
     ```
+
     Or using npm:
+
     ```bash
     npm install
     ```
 
 4.  **Run the Development Server**
+
     ```bash
     pnpm dev
     ```
@@ -243,16 +259,19 @@ See the [Detailed Setup](#-detailed-setup) section for full instructions.
 ## 🎯 **Target Audience**
 
 ### 👨‍🎓 **Students**
+
 - Discover clubs that match their interests.
 - Stay updated on campus events and activities.
 - Connect with like-minded peers and take on leadership roles.
 
 ### 👨‍🏫 **Club Administrators**
+
 - Manage club members, activities, and announcements from one place.
 - Organize events and track attendance.
 - Communicate effectively with all club members.
 
 ### 🏛️ **College Administrators**
+
 - Oversee all club activities on campus.
 - Manage student registrations and club approvals.
 - Gain insights into campus engagement through analytics.
@@ -279,7 +298,7 @@ Please make sure to read our (planned) `CONTRIBUTING.md` for more details on our
 
 A huge thank you to all the amazing people who have contributed to ClubVerse!
 
-*(placeholder: This section will be automatically updated by the all-contributors bot or a similar tool once set up.)*
+_(placeholder: This section will be automatically updated by the all-contributors bot or a similar tool once set up.)_
 
 <a href="https://github.com/your-username/clubverse/contributors">
   <img src="https://contrib.rocks/image?repo=your-username/clubverse" />
@@ -296,10 +315,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
 
 ### 📬 **Feedback & Suggestions**
-*Have an idea or found a bug? We'd love to hear from you!*
-<br/>
-*Feel free to [open an issue](https://github.com/your-username/clubverse/issues) on GitHub.*
 
-💡 *Let's build the ultimate college club platform, together!*
+_Have an idea or found a bug? We'd love to hear from you!_
+<br/>
+_Feel free to [open an issue](https://github.com/your-username/clubverse/issues) on GitHub._
+
+💡 _Let's build the ultimate college club platform, together!_
 
 </div>

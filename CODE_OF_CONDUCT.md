@@ -9,6 +9,7 @@ We pledge to act and interact in ways that contribute to an open, welcoming, div
 ## Our Standards
 
 Examples of behavior that contributes to a positive environment:
+
 - Showing empathy and kindness
 - Being respectful of differing opinions
 - Accepting constructive feedback
@@ -16,6 +17,7 @@ Examples of behavior that contributes to a positive environment:
 - Focusing on what's best for the community
 
 Unacceptable behavior includes:
+
 - Sexualized language or imagery
 - Trolling, insulting, or derogatory comments
 - Public or private harassment
@@ -34,4 +36,4 @@ This Code of Conduct applies within all community spaces and when representing t
 
 ## Attribution
 
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/version/2/0/code_of_conduct.html), version 2.0. 
+This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/version/2/0/code_of_conduct.html), version 2.0.

@@ -1,12 +1,17 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import {
   Dialog,
   DialogContent,
@@ -14,24 +19,24 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { GraduationCap, ChevronDown, LogIn, UserPlus } from "lucide-react"
-import { useAuth } from "@/hooks/useAuth"
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { GraduationCap, ChevronDown, LogIn, UserPlus } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 export function Navbar() {
-  const { user, signOut } = useAuth()
-  const [isStudentAuthOpen, setIsStudentAuthOpen] = useState(false)
-  const [isAdminAuthOpen, setIsAdminAuthOpen] = useState(false)
-  const router = useRouter()
+  const { user, signOut } = useAuth();
+  const [isStudentAuthOpen, setIsStudentAuthOpen] = useState(false);
+  const [isAdminAuthOpen, setIsAdminAuthOpen] = useState(false);
+  const router = useRouter();
 
   const handleSignOut = async () => {
-    await signOut()
-    router.push("/")
-  }
+    await signOut();
+    router.push('/');
+  };
 
   return (
     <nav className="bg-white shadow-sm border-b">
@@ -83,8 +88,12 @@ export function Navbar() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuItem onClick={() => setIsAdminAuthOpen(true)}>College Admin</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setIsAdminAuthOpen(true)}>Club Admin</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setIsAdminAuthOpen(true)}>
+                          College Admin
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setIsAdminAuthOpen(true)}>
+                          Club Admin
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </DialogTrigger>
@@ -109,7 +118,7 @@ export function Navbar() {
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 function StudentAuthTabs({ onClose }: { onClose: () => void }) {
@@ -126,27 +135,27 @@ function StudentAuthTabs({ onClose }: { onClose: () => void }) {
         <StudentRegisterForm onClose={onClose} />
       </TabsContent>
     </Tabs>
-  )
+  );
 }
 
 function StudentLoginForm({ onClose }: { onClose: () => void }) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
-  const { signIn } = useAuth()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     try {
-      await signIn(email, password, "student")
-      onClose()
+      await signIn(email, password, 'student');
+      onClose();
     } catch (error) {
-      console.error("Login error:", error)
+      console.error('Login error:', error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Card>
@@ -157,7 +166,13 @@ function StudentLoginForm({ onClose }: { onClose: () => void }) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Label htmlFor="student-email">Email</Label>
-            <Input id="student-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <Input
+              id="student-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
           <div>
             <Label htmlFor="student-password">Password</Label>
@@ -170,40 +185,40 @@ function StudentLoginForm({ onClose }: { onClose: () => void }) {
             />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? 'Signing in...' : 'Sign In'}
           </Button>
         </form>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 function StudentRegisterForm({ onClose }: { onClose: () => void }) {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    collegeName: "",
-  })
-  const [loading, setLoading] = useState(false)
-  const { signUp } = useAuth()
+    name: '',
+    email: '',
+    password: '',
+    collegeName: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const { signUp } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     try {
       await signUp(formData.email, formData.password, {
         name: formData.name,
         collegeName: formData.collegeName,
-        role: "student",
-      })
-      onClose()
+        role: 'student',
+      });
+      onClose();
     } catch (error) {
-      console.error("Registration error:", error)
+      console.error('Registration error:', error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Card>
@@ -252,33 +267,33 @@ function StudentRegisterForm({ onClose }: { onClose: () => void }) {
             />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Creating Account..." : "Create Account"}
+            {loading ? 'Creating Account...' : 'Create Account'}
           </Button>
         </form>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 function AdminAuthForm({ onClose }: { onClose: () => void }) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [adminType, setAdminType] = useState<"college_admin" | "club_admin">("college_admin")
-  const [loading, setLoading] = useState(false)
-  const { signIn } = useAuth()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [adminType, setAdminType] = useState<'college_admin' | 'club_admin'>('college_admin');
+  const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     try {
-      await signIn(email, password, adminType)
-      onClose()
+      await signIn(email, password, adminType);
+      onClose();
     } catch (error) {
-      console.error("Admin login error:", error)
+      console.error('Admin login error:', error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Card>
@@ -291,8 +306,8 @@ function AdminAuthForm({ onClose }: { onClose: () => void }) {
                 <input
                   type="radio"
                   value="college_admin"
-                  checked={adminType === "college_admin"}
-                  onChange={(e) => setAdminType(e.target.value as "college_admin")}
+                  checked={adminType === 'college_admin'}
+                  onChange={(e) => setAdminType(e.target.value as 'college_admin')}
                   className="mr-2"
                 />
                 College Admin
@@ -301,8 +316,8 @@ function AdminAuthForm({ onClose }: { onClose: () => void }) {
                 <input
                   type="radio"
                   value="club_admin"
-                  checked={adminType === "club_admin"}
-                  onChange={(e) => setAdminType(e.target.value as "club_admin")}
+                  checked={adminType === 'club_admin'}
+                  onChange={(e) => setAdminType(e.target.value as 'club_admin')}
                   className="mr-2"
                 />
                 Club Admin
@@ -311,7 +326,13 @@ function AdminAuthForm({ onClose }: { onClose: () => void }) {
           </div>
           <div>
             <Label htmlFor="admin-email">Email</Label>
-            <Input id="admin-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <Input
+              id="admin-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
           <div>
             <Label htmlFor="admin-password">Password</Label>
@@ -324,10 +345,10 @@ function AdminAuthForm({ onClose }: { onClose: () => void }) {
             />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? 'Signing in...' : 'Sign In'}
           </Button>
         </form>
       </CardContent>
     </Card>
-  )
+  );
 }
