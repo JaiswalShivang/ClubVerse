@@ -10,7 +10,8 @@
 <!-- Main purpose and summary of the change. -->
 
 ## 🔗 Related Issues
-<!-- Link related issues (e.g., Fixes #123, Closes #456) -->
+<!-- Link related issues (e.g. #Closes(15)) -->
+#Closes (add_issue_number)
 
 ## 🧩 Issue Complexity Level
 - [ ] 🌿 Level 1 – Simple bug fix / minor enhancement
