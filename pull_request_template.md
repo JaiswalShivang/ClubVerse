@@ -12,6 +12,11 @@
 ## 🔗 Related Issues
 <!-- Link related issues (e.g., Fixes #123, Closes #456) -->
 
+## 🧩 Issue Complexity Level
+- [ ] 🌿 Level 1 – Simple bug fix / minor enhancement
+- [ ] 🌊 Level 2 – Moderate logic / new component / multi-file changes
+- [ ] 🔥 Level 3 – Complex logic / large-scale refactor / critical feature
+
 ## 🧪 Type of Change
 <!-- Mark all that apply with an 'x' -->
 - [ ] 🐛 Bug fix
