@@ -117,7 +117,6 @@ _Help students and colleges everywhere by contributing to a platform that matter
 ### 🛠️ **Development Tools**
 
 - **Package Manager**: pnpm / npm
-- **Code Quality**: ESLint, Prettier (planned)
 - **Version Control**: Git
 - **Deployment**: Vercel
 

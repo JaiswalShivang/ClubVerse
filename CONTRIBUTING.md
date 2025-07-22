@@ -125,7 +125,7 @@ ClubVerse/
 #### **📝 Documentation & DX (Developer Experience)**
 
 - **Write Documentation**: Help us improve the `README.md` or write new guides for specific features.
-- **Improve Tooling**: Suggest or implement better linting rules, formatters (like Prettier), or CI/CD workflows with GitHub Actions.
+- **Improve Tooling**: Suggest or implement better CI/CD workflows with GitHub Actions.
 
 ---
 
