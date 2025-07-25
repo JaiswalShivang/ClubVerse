@@ -120,60 +120,7 @@ export default function HomePage() {
   }, []);
 
   // Rotate testimonials
-  useEffect(() => {
-    const testimonials = [
-      {
-        name: "Sarah Chen",
-        role: "Computer Science Student",
-        college: "Tech University",
-        quote: "Joining the Coding Club through this platform changed my college experience completely. I've made lifelong friends and landed my dream internship!",
-        avatar: "SC"
-      },
-      {
-        name: "Marcus Johnson",
-        role: "Photography Club President",
-        college: "Arts College",
-        quote: "Managing our club has never been easier. The event organization tools helped us triple our membership this year.",
-        avatar: "MJ"
-      },
-      {
-        name: "Priya Patel",
-        role: "Business Student",
-        college: "Commerce University",
-        quote: "I discovered clubs I never knew existed. The real-time chat feature keeps our debate team connected 24/7.",
-        avatar: "PP"
-      }
-    ];
-
-    const testimonialTimer = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 4000);
-    
-    return () => clearInterval(testimonialTimer);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
-  if (user) {
-    return null;
-  }
-
-  const clubCategories: ClubCategory[] = [
-    { icon: Code, name: "Tech & Programming", count: 45, color: "text-blue-600" },
-    { icon: Palette, name: "Arts & Creative", count: 38, color: "text-purple-600" },
-    { icon: Music, name: "Music & Performance", count: 32, color: "text-green-600" },
-    { icon: Mountain, name: "Sports & Adventure", count: 41, color: "text-orange-600" },
-    { icon: BookOpen, name: "Academic & Research", count: 29, color: "text-red-600" },
-    { icon: Globe, name: "Cultural & International", count: 25, color: "text-indigo-600" }
-  ];
-
-  const testimonials: Testimonial[] = [
+   const testimonials: Testimonial[] = [
     {
       name: "Sarah Chen",
       role: "Computer Science Student",
@@ -196,6 +143,37 @@ export default function HomePage() {
       avatar: "PP"
     }
   ];
+   useEffect(() => {
+    if (testimonials.length === 0) return;
+
+    const testimonialTimer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 4000);
+    
+    return () => clearInterval(testimonialTimer);
+  }, [testimonials.length]);
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (user) {
+    return null;
+  }
+
+  const clubCategories: ClubCategory[] = [
+    { icon: Code, name: "Tech & Programming", count: 45, color: "text-blue-600" },
+    { icon: Palette, name: "Arts & Creative", count: 38, color: "text-purple-600" },
+    { icon: Music, name: "Music & Performance", count: 32, color: "text-green-600" },
+    { icon: Mountain, name: "Sports & Adventure", count: 41, color: "text-orange-600" },
+    { icon: BookOpen, name: "Academic & Research", count: 29, color: "text-red-600" },
+    { icon: Globe, name: "Cultural & International", count: 25, color: "text-indigo-600" }
+  ];
+
+ 
 
   const successStories: SuccessStory[] = [
     {
