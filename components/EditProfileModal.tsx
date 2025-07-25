@@ -31,7 +31,14 @@ export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
       setPreviewUrl(user.profileImageUrl || null)
       setAvatarFile(null) // Reset file on open
     }
-  }, [user, isOpen])
+
+    // When the modal is closed or dependencies change, cleanup the blob URL
+    return () => {
+      if (previewUrl && previewUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    }
+  }, [user, isOpen, previewUrl])
 
   const handleFileSelect = (file: File | null) => {
     if (file) {

@@ -240,7 +240,7 @@ export default function CollegeAdminDashboard() {
             <TabsList>
               <TabsTrigger value="clubs">Clubs Management</TabsTrigger>
               <TabsTrigger value="students">Students Management</TabsTrigger>
-              <TabsTrigger value="profile">College Profile</TabsTrigger>
+              <TabsTrigger value="profile">My Profile</TabsTrigger>
               <TabsTrigger value="reports">Reports</TabsTrigger>
             </TabsList>
 
@@ -380,7 +380,7 @@ export default function CollegeAdminDashboard() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between border-b pb-4">
                   <div>
-                    <CardTitle className="mb-2">My Profile Settings</CardTitle>
+                    <CardTitle className="mb-2">My Profile</CardTitle>
                     <CardDescription>
                       Manage your personal admin information
                     </CardDescription>

@@ -71,7 +71,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       // If user doesn't exist in our mock DB, create them for the first time
       if (!userToLogin) {
-        console.log("First time login for this mock user, creating entry...")
         if (email === "superadmin@clubverse.com") {
           userToLogin = { uid: "super-admin-1", email, name: "Super Admin", role: "super_admin" }
         } else if (role === "college_admin" || email.includes("college")) {

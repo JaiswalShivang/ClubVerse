@@ -295,7 +295,7 @@ export default function ClubAdminDashboard() {
               <TabsTrigger value="members">Members Management</TabsTrigger>
               <TabsTrigger value="events">Events Management</TabsTrigger>
               <TabsTrigger value="chat">Chat Moderation</TabsTrigger>
-              <TabsTrigger value="profile">Club Profile</TabsTrigger>
+              <TabsTrigger value="profile">My Profile</TabsTrigger>
             </TabsList>
 
             <TabsContent value="members" className="space-y-6">
@@ -507,7 +507,7 @@ export default function ClubAdminDashboard() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between border-b pb-4">
                   <div>
-                    <CardTitle className="mb-2">My Profile Settings</CardTitle>
+                    <CardTitle className="mb-2">My Profile</CardTitle>
                     <CardDescription>
                       Manage your personal admin information
                     </CardDescription>
