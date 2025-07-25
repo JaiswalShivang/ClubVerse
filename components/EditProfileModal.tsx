@@ -1,101 +1,92 @@
-"use client";
+"use client"
 
-import type React from "react";
-import { useState, useEffect, useRef } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UploadCloud } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import type React from "react"
+import { useState, useEffect, useRef } from "react"
+import { useAuth } from "@/hooks/useAuth"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { UploadCloud } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
+
 interface EditProfileModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen: boolean
+  onClose: () => void
 }
 
 export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
-  const { user, updateUserProfile } = useAuth();
-  const { toast } = useToast();
-  const [name, setName] = useState(user?.name || "");
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(
-    user?.profileImageUrl || null
-  );
-  const [loading, setLoading] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { user, updateUserProfile } = useAuth()
+  const { toast } = useToast()
+  const [name, setName] = useState(user?.name || "")
+  const [avatarFile, setAvatarFile] = useState<File | null>(null)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(user?.profileImageUrl || null)
+  const [loading, setLoading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (user && isOpen) {
-      setName(user.name);
-      setPreviewUrl(user.profileImageUrl || null);
-      setAvatarFile(null); // Reset file on open
+      setName(user.name)
+      setPreviewUrl(user.profileImageUrl || null)
+      setAvatarFile(null) // Reset file on open
     }
-  }, [user, isOpen]);
+  }, [user, isOpen])
 
   const handleFileSelect = (file: File | null) => {
     if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        // 2MB limit
+      if (file.size > 2 * 1024 * 1024) { // 2MB limit
         toast({
           variant: "destructive",
           title: "File Too Large",
           description: "Please select an image smaller than 2MB.",
-        });
-        return;
+        })
+        return
       }
       if (!file.type.startsWith("image/")) {
         toast({
           variant: "destructive",
           title: "Invalid File Type",
           description: "Please select a valid image file (PNG, JPG, etc.).",
-        });
-        return;
+        })
+        return
       }
-      setAvatarFile(file);
-      setPreviewUrl(URL.createObjectURL(file));
+      setAvatarFile(file)
+      setPreviewUrl(URL.createObjectURL(file))
     }
-  };
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleFileSelect(e.target.files?.[0] || null);
-  };
+    handleFileSelect(e.target.files?.[0] || null)
+  }
 
   const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    handleFileSelect(e.dataTransfer.files?.[0] || null);
-  };
+    e.preventDefault()
+    e.stopPropagation()
+    handleFileSelect(e.dataTransfer.files?.[0] || null)
+  }
 
   const handleSubmit = async () => {
-    if (!user) return;
-    setLoading(true);
+    if (!user) return
+    setLoading(true)
     try {
-      await updateUserProfile({ name, avatarFile });
+      await updateUserProfile({ name, avatarFile })
       toast({
         title: "Profile Updated",
         description: "Your profile has been successfully updated.",
-      });
-      onClose();
+      })
+      onClose()
     } catch (error) {
-      console.error("Failed to update profile:", error);
+      console.error("Failed to update profile:", error)
       toast({
         variant: "destructive",
         title: "Update Failed",
         description: "Something went wrong. Please try again.",
-      });
+      })
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -119,7 +110,7 @@ export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
 
           <div className="grid w-full items-center gap-2">
             <Label>Avatar</Label>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
               <div className="flex flex-col gap-2">
                 <Avatar className="h-24 w-24">
                   <AvatarImage src={previewUrl || undefined} />
@@ -133,7 +124,7 @@ export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
               </div>
               <Label
                 htmlFor="avatar-upload"
-                className="flex h-full flex-1 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed border-gray-300 p-4 text-center text-sm text-gray-500 transition-colors hover:border-blue-500 hover:bg-blue-50"
+                className="flex h-full w-full sm:flex-1 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed border-gray-300 p-4 text-center text-sm text-gray-500 transition-colors hover:border-blue-500 hover:bg-blue-50"
                 onDrop={handleDrop}
                 onDragOver={(e) => e.preventDefault()}
                 onDragEnter={(e) => e.preventDefault()}
@@ -153,15 +144,15 @@ export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
           </div>
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
+        <DialogFooter className="flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
           <Button onClick={handleSubmit} disabled={loading}>
             {loading ? "Saving..." : "Save Changes"}
+          </Button>
+          <Button variant="outline" onClick={onClose}>
+            Cancel
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
