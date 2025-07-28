@@ -1,23 +1,15 @@
-"use client";
+'use client';
 
-import type React from "react";
+import type React from 'react';
 
-import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { EditProfileModal } from "@/components/EditProfileModal";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
   DialogContent,
@@ -25,9 +17,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Building2,
   Users,
@@ -38,9 +30,7 @@ import {
   Trash2,
   LogOut,
   Crown,
-  Mail,
-  Shield,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface College {
   id: string;
@@ -82,105 +72,103 @@ export default function SuperAdminDashboard() {
   const [colleges, setColleges] = useState<College[]>([]);
   const [clubs, setClubs] = useState<Club[]>([]);
   const [users, setUsers] = useState<User[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [isAddCollegeOpen, setIsAddCollegeOpen] = useState(false);
   const [isAddClubOpen, setIsAddClubOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
-    if (!user || user.role !== "super_admin") {
-      router.push("/");
+    if (!user || user.role !== 'super_admin') {
+      router.push('/');
       return;
     }
 
     // Mock data
     const mockColleges: College[] = [
       {
-        id: "college-1",
-        name: "Tech University",
-        location: "San Francisco, CA",
-        description: "Leading technology university with innovative programs",
-        adminId: "admin-1",
-        adminName: "John Smith",
+        id: 'college-1',
+        name: 'Tech University',
+        location: 'San Francisco, CA',
+        description: 'Leading technology university with innovative programs',
+        adminId: 'admin-1',
+        adminName: 'John Smith',
         clubCount: 25,
         studentCount: 1200,
-        createdAt: "2024-01-01",
+        createdAt: '2024-01-01',
       },
       {
-        id: "college-2",
-        name: "State College",
-        location: "Austin, TX",
-        description:
-          "Comprehensive state college with diverse academic offerings",
-        adminId: "admin-2",
-        adminName: "Sarah Johnson",
+        id: 'college-2',
+        name: 'State College',
+        location: 'Austin, TX',
+        description: 'Comprehensive state college with diverse academic offerings',
+        adminId: 'admin-2',
+        adminName: 'Sarah Johnson',
         clubCount: 18,
         studentCount: 800,
-        createdAt: "2024-01-05",
+        createdAt: '2024-01-05',
       },
     ];
 
     const mockClubs: Club[] = [
       {
-        id: "club-1",
-        name: "Photography Club",
-        description: "Capture moments, create memories",
-        collegeId: "college-1",
-        collegeName: "Tech University",
-        adminId: "club-admin-1",
-        adminName: "Mike Wilson",
+        id: 'club-1',
+        name: 'Photography Club',
+        description: 'Capture moments, create memories',
+        collegeId: 'college-1',
+        collegeName: 'Tech University',
+        adminId: 'club-admin-1',
+        adminName: 'Mike Wilson',
         memberCount: 45,
-        createdAt: "2024-01-10",
+        createdAt: '2024-01-10',
       },
       {
-        id: "club-2",
-        name: "Debate Society",
-        description: "Sharpen your arguments and public speaking",
-        collegeId: "college-1",
-        collegeName: "Tech University",
-        adminId: "club-admin-2",
-        adminName: "Emma Davis",
+        id: 'club-2',
+        name: 'Debate Society',
+        description: 'Sharpen your arguments and public speaking',
+        collegeId: 'college-1',
+        collegeName: 'Tech University',
+        adminId: 'club-admin-2',
+        adminName: 'Emma Davis',
         memberCount: 32,
-        createdAt: "2024-01-12",
+        createdAt: '2024-01-12',
       },
       {
-        id: "club-3",
-        name: "Coding Club",
-        description: "Learn, code, and build amazing projects",
-        collegeId: "college-2",
-        collegeName: "State College",
-        adminId: "club-admin-3",
-        adminName: "Alex Brown",
+        id: 'club-3',
+        name: 'Coding Club',
+        description: 'Learn, code, and build amazing projects',
+        collegeId: 'college-2',
+        collegeName: 'State College',
+        adminId: 'club-admin-3',
+        adminName: 'Alex Brown',
         memberCount: 78,
-        createdAt: "2024-01-15",
+        createdAt: '2024-01-15',
       },
     ];
 
     const mockUsers: User[] = [
       {
-        id: "admin-1",
-        name: "John Smith",
-        email: "john@techuni.edu",
-        role: "college_admin",
-        collegeName: "Tech University",
-        createdAt: "2024-01-01",
+        id: 'admin-1',
+        name: 'John Smith',
+        email: 'john@techuni.edu',
+        role: 'college_admin',
+        collegeName: 'Tech University',
+        createdAt: '2024-01-01',
       },
       {
-        id: "club-admin-1",
-        name: "Mike Wilson",
-        email: "mike@techuni.edu",
-        role: "club_admin",
-        collegeName: "Tech University",
-        clubName: "Photography Club",
-        createdAt: "2024-01-10",
+        id: 'club-admin-1',
+        name: 'Mike Wilson',
+        email: 'mike@techuni.edu',
+        role: 'club_admin',
+        collegeName: 'Tech University',
+        clubName: 'Photography Club',
+        createdAt: '2024-01-10',
       },
       {
-        id: "student-1",
-        name: "Alice Cooper",
-        email: "alice@student.techuni.edu",
-        role: "student",
-        collegeName: "Tech University",
-        createdAt: "2024-01-20",
+        id: 'student-1',
+        name: 'Alice Cooper',
+        email: 'alice@student.techuni.edu',
+        role: 'student',
+        collegeName: 'Tech University',
+        createdAt: '2024-01-20',
       },
     ];
 
@@ -191,12 +179,12 @@ export default function SuperAdminDashboard() {
 
   const handleAddCollege = (collegeData: any) => {
     const newCollege: College = {
-      id: "college-" + Date.now(),
+      id: 'college-' + Date.now(),
       ...collegeData,
-      adminId: "admin-" + Date.now(),
+      adminId: 'admin-' + Date.now(),
       clubCount: 0,
       studentCount: 0,
-      createdAt: new Date().toISOString().split("T")[0],
+      createdAt: new Date().toISOString().split('T')[0],
     };
     setColleges((prev) => [...prev, newCollege]);
     setIsAddCollegeOpen(false);
@@ -204,11 +192,11 @@ export default function SuperAdminDashboard() {
 
   const handleAddClub = (clubData: any) => {
     const newClub: Club = {
-      id: "club-" + Date.now(),
+      id: 'club-' + Date.now(),
       ...clubData,
-      adminId: "club-admin-" + Date.now(),
+      adminId: 'club-admin-' + Date.now(),
       memberCount: 0,
-      createdAt: new Date().toISOString().split("T")[0],
+      createdAt: new Date().toISOString().split('T')[0],
     };
     setClubs((prev) => [...prev, newClub]);
     setIsAddClubOpen(false);
@@ -217,430 +205,336 @@ export default function SuperAdminDashboard() {
   if (!user) return null;
 
   return (
-    <>
-      <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white shadow-sm border-b">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-4">
-              <div className="flex items-center space-x-3">
-                <Crown className="h-8 w-8 text-yellow-600" />
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-900">
-                    Super Admin Dashboard
-                  </h1>
-                  <p className="text-gray-600">
-                    Manage colleges, clubs, and platform overview
-                  </p>
-                </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-3">
+              <Crown className="h-8 w-8 text-yellow-600" />
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">Super Admin Dashboard</h1>
+                <p className="text-gray-600">Manage colleges, clubs, and platform overview</p>
               </div>
-              <Button variant="outline" onClick={signOut}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Sign Out
-              </Button>
             </div>
+            <Button variant="outline" onClick={signOut}>
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
+            </Button>
           </div>
-        </header>
+        </div>
+      </header>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Stats Cards */}
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Colleges
-                </CardTitle>
-                <Building2 className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{colleges.length}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Clubs
-                </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{clubs.length}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Users
-                </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{users.length}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Members
-                </CardTitle>
-                <BarChart3 className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {clubs.reduce((sum, club) => sum + club.memberCount, 0)}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Tabs defaultValue="colleges" className="space-y-6">
-            <TabsList>
-              <TabsTrigger value="colleges">Colleges Management</TabsTrigger>
-              <TabsTrigger value="clubs">Clubs Management</TabsTrigger>
-              <TabsTrigger value="users">Users Overview</TabsTrigger>
-              <TabsTrigger value="analytics">Platform Analytics</TabsTrigger>
-              <TabsTrigger value="profile">My Profile</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="colleges" className="space-y-6">
-              <div className="flex justify-between items-center">
-                <div className="relative flex-1 max-w-sm">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                  <Input
-                    placeholder="Search colleges..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-                <Dialog
-                  open={isAddCollegeOpen}
-                  onOpenChange={setIsAddCollegeOpen}
-                >
-                  <DialogTrigger asChild>
-                    <Button>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add College
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Add New College</DialogTitle>
-                      <DialogDescription>
-                        Create a new college and generate admin credentials
-                      </DialogDescription>
-                    </DialogHeader>
-                    <AddCollegeForm onSubmit={handleAddCollege} />
-                  </DialogContent>
-                </Dialog>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Stats Cards */}
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Colleges</CardTitle>
+              <Building2 className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{colleges.length}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Clubs</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{clubs.length}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{users.length}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Members</CardTitle>
+              <BarChart3 className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {clubs.reduce((sum, club) => sum + club.memberCount, 0)}
               </div>
+            </CardContent>
+          </Card>
+        </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                {colleges
-                  .filter(
-                    (college) =>
-                      college.name
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()) ||
-                      college.location
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase())
-                  )
-                  .map((college) => (
-                    <Card key={college.id}>
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle>{college.name}</CardTitle>
-                            <CardDescription>
-                              {college.location}
-                            </CardDescription>
-                          </div>
-                          <div className="flex space-x-2">
-                            <Button size="sm" variant="outline">
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-600 mb-4">
-                          {college.description}
-                        </p>
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                          <div>
-                            <span className="font-medium">Admin:</span>{" "}
-                            {college.adminName}
-                          </div>
-                          <div>
-                            <span className="font-medium">Clubs:</span>{" "}
-                            {college.clubCount}
-                          </div>
-                          <div>
-                            <span className="font-medium">Students:</span>{" "}
-                            {college.studentCount}
-                          </div>
-                          <div>
-                            <span className="font-medium">Created:</span>{" "}
-                            {college.createdAt}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-              </div>
-            </TabsContent>
+        <Tabs defaultValue="colleges" className="space-y-6">
+          <TabsList>
+            <TabsTrigger value="colleges">Colleges Management</TabsTrigger>
+            <TabsTrigger value="clubs">Clubs Management</TabsTrigger>
+            <TabsTrigger value="users">Users Overview</TabsTrigger>
+            <TabsTrigger value="analytics">Platform Analytics</TabsTrigger>
+          </TabsList>
 
-            <TabsContent value="clubs" className="space-y-6">
-              <div className="flex justify-between items-center">
-                <div className="relative flex-1 max-w-sm">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                  <Input
-                    placeholder="Search clubs..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-                <Dialog open={isAddClubOpen} onOpenChange={setIsAddClubOpen}>
-                  <DialogTrigger asChild>
-                    <Button>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Club
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Add New Club</DialogTitle>
-                      <DialogDescription>
-                        Create a new club and assign admin
-                      </DialogDescription>
-                    </DialogHeader>
-                    <AddClubForm colleges={colleges} onSubmit={handleAddClub} />
-                  </DialogContent>
-                </Dialog>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {clubs
-                  .filter(
-                    (club) =>
-                      club.name
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()) ||
-                      club.collegeName
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase())
-                  )
-                  .map((club) => (
-                    <Card key={club.id}>
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle>{club.name}</CardTitle>
-                            <CardDescription>
-                              {club.collegeName}
-                            </CardDescription>
-                          </div>
-                          <div className="flex space-x-2">
-                            <Button size="sm" variant="outline">
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-600 mb-4">{club.description}</p>
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                          <div>
-                            <span className="font-medium">Admin:</span>{" "}
-                            {club.adminName}
-                          </div>
-                          <div>
-                            <span className="font-medium">Members:</span>{" "}
-                            {club.memberCount}
-                          </div>
-                          <div>
-                            <span className="font-medium">Created:</span>{" "}
-                            {club.createdAt}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="users" className="space-y-6">
-              <div className="relative max-w-sm">
+          <TabsContent value="colleges" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <div className="relative flex-1 max-w-sm">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
-                  placeholder="Search users..."
+                  placeholder="Search colleges..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
                 />
               </div>
-
-              <div className="bg-white rounded-lg shadow overflow-hidden">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        User
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Role
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        College/Club
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Created
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {users
-                      .filter(
-                        (user) =>
-                          user.name
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                          user.email
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase())
-                      )
-                      .map((user) => (
-                        <tr key={user.id}>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div>
-                              <div className="text-sm font-medium text-gray-900">
-                                {user.name}
-                              </div>
-                              <div className="text-sm text-gray-500">
-                                {user.email}
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <Badge
-                              variant={
-                                user.role === "college_admin"
-                                  ? "default"
-                                  : user.role === "club_admin"
-                                  ? "secondary"
-                                  : "outline"
-                              }
-                            >
-                              {user.role.replace("_", " ")}
-                            </Badge>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {user.clubName || user.collegeName || "-"}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {user.createdAt}
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="analytics" className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Platform Growth</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">
-                      Analytics dashboard coming soon...
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Recent Activity</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      <div className="text-sm">
-                        <span className="font-medium">Tech University</span>{" "}
-                        added 3 new clubs
-                      </div>
-                      <div className="text-sm">
-                        <span className="font-medium">State College</span>{" "}
-                        registered 25 new students
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="profile" className="space-y-6">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between border-b pb-4">
-                  <div>
-                    <CardTitle className="mb-2">My Profile Settings</CardTitle>
-                    <CardDescription>
-                      Manage your personal admin information
-                    </CardDescription>
-                  </div>
-                  <Button onClick={() => setIsEditModalOpen(true)}>
-                    Edit Profile
+              <Dialog open={isAddCollegeOpen} onOpenChange={setIsAddCollegeOpen}>
+                <DialogTrigger asChild>
+                  <Button>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add College
                   </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Add New College</DialogTitle>
+                    <DialogDescription>
+                      Create a new college and generate admin credentials
+                    </DialogDescription>
+                  </DialogHeader>
+                  <AddCollegeForm onSubmit={handleAddCollege} />
+                </DialogContent>
+              </Dialog>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {colleges
+                .filter(
+                  (college) =>
+                    college.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    college.location.toLowerCase().includes(searchTerm.toLowerCase()),
+                )
+                .map((college) => (
+                  <Card key={college.id}>
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <CardTitle>{college.name}</CardTitle>
+                          <CardDescription>{college.location}</CardDescription>
+                        </div>
+                        <div className="flex space-x-2">
+                          <Button size="sm" variant="outline">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-600 mb-4">{college.description}</p>
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="font-medium">Admin:</span> {college.adminName}
+                        </div>
+                        <div>
+                          <span className="font-medium">Clubs:</span> {college.clubCount}
+                        </div>
+                        <div>
+                          <span className="font-medium">Students:</span> {college.studentCount}
+                        </div>
+                        <div>
+                          <span className="font-medium">Created:</span> {college.createdAt}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="clubs" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <div className="relative flex-1 max-w-sm">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="Search clubs..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <Dialog open={isAddClubOpen} onOpenChange={setIsAddClubOpen}>
+                <DialogTrigger asChild>
+                  <Button>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Club
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Add New Club</DialogTitle>
+                    <DialogDescription>Create a new club and assign admin</DialogDescription>
+                  </DialogHeader>
+                  <AddClubForm colleges={colleges} onSubmit={handleAddClub} />
+                </DialogContent>
+              </Dialog>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {clubs
+                .filter(
+                  (club) =>
+                    club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    club.collegeName.toLowerCase().includes(searchTerm.toLowerCase()),
+                )
+                .map((club) => (
+                  <Card key={club.id}>
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <CardTitle>{club.name}</CardTitle>
+                          <CardDescription>{club.collegeName}</CardDescription>
+                        </div>
+                        <div className="flex space-x-2">
+                          <Button size="sm" variant="outline">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-600 mb-4">{club.description}</p>
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="font-medium">Admin:</span> {club.adminName}
+                        </div>
+                        <div>
+                          <span className="font-medium">Members:</span> {club.memberCount}
+                        </div>
+                        <div>
+                          <span className="font-medium">Created:</span> {club.createdAt}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="users" className="space-y-6">
+            <div className="relative max-w-sm">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input
+                placeholder="Search users..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+
+            <div className="bg-white rounded-lg shadow overflow-hidden">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      User
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Role
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      College/Club
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Created
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {users
+                    .filter(
+                      (user) =>
+                        user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        user.email.toLowerCase().includes(searchTerm.toLowerCase()),
+                    )
+                    .map((user) => (
+                      <tr key={user.id}>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div>
+                            <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                            <div className="text-sm text-gray-500">{user.email}</div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <Badge
+                            variant={
+                              user.role === 'college_admin'
+                                ? 'default'
+                                : user.role === 'club_admin'
+                                  ? 'secondary'
+                                  : 'outline'
+                            }
+                          >
+                            {user.role.replace('_', ' ')}
+                          </Badge>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {user.clubName || user.collegeName || '-'}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {user.createdAt}
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="analytics" className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Platform Growth</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4 pt-6">
-                  <div className="flex items-center space-x-4">
-                    <Avatar className="h-24 w-24">
-                      <AvatarImage src={user.profileImageUrl} />
-                      <AvatarFallback className="text-3xl">
-                        {user.name ? user.name.charAt(0).toUpperCase() : "U"}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h2 className="text-2xl font-semibold">{user.name}</h2>
-                      <div className="flex items-center text-gray-500">
-                        <Mail className="h-4 w-4 mr-2" />
-                        {user.email}
-                      </div>
-                      <div className="flex items-center text-gray-500">
-                        <Shield className="h-4 w-4 mr-2" />
-                        Super Administrator
-                      </div>
+                <CardContent>
+                  <p className="text-gray-600">Analytics dashboard coming soon...</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Recent Activity</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="text-sm">
+                      <span className="font-medium">Tech University</span> added 3 new clubs
+                    </div>
+                    <div className="text-sm">
+                      <span className="font-medium">State College</span> registered 25 new students
                     </div>
                   </div>
                 </CardContent>
               </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
-      <EditProfileModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-      />
-    </>
+    </div>
   );
 }
 
 function AddCollegeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
   const [formData, setFormData] = useState({
-    name: "",
-    location: "",
-    description: "",
-    adminName: "",
-    adminEmail: "",
+    name: '',
+    location: '',
+    description: '',
+    adminName: '',
+    adminEmail: '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -655,9 +549,7 @@ function AddCollegeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
         <Input
           id="college-name"
           value={formData.name}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, name: e.target.value }))
-          }
+          onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
           required
         />
       </div>
@@ -666,9 +558,7 @@ function AddCollegeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
         <Input
           id="location"
           value={formData.location}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, location: e.target.value }))
-          }
+          onChange={(e) => setFormData((prev) => ({ ...prev, location: e.target.value }))}
           required
         />
       </div>
@@ -677,9 +567,7 @@ function AddCollegeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
         <Textarea
           id="description"
           value={formData.description}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, description: e.target.value }))
-          }
+          onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
           required
         />
       </div>
@@ -688,9 +576,7 @@ function AddCollegeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
         <Input
           id="admin-name"
           value={formData.adminName}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, adminName: e.target.value }))
-          }
+          onChange={(e) => setFormData((prev) => ({ ...prev, adminName: e.target.value }))}
           required
         />
       </div>
@@ -700,9 +586,7 @@ function AddCollegeForm({ onSubmit }: { onSubmit: (data: any) => void }) {
           id="admin-email"
           type="email"
           value={formData.adminEmail}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, adminEmail: e.target.value }))
-          }
+          onChange={(e) => setFormData((prev) => ({ ...prev, adminEmail: e.target.value }))}
           required
         />
       </div>
@@ -721,11 +605,11 @@ function AddClubForm({
   onSubmit: (data: any) => void;
 }) {
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    collegeId: "",
-    adminName: "",
-    adminEmail: "",
+    name: '',
+    description: '',
+    collegeId: '',
+    adminName: '',
+    adminEmail: '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -733,7 +617,7 @@ function AddClubForm({
     const selectedCollege = colleges.find((c) => c.id === formData.collegeId);
     onSubmit({
       ...formData,
-      collegeName: selectedCollege?.name || "",
+      collegeName: selectedCollege?.name || '',
     });
   };
 
@@ -744,9 +628,7 @@ function AddClubForm({
         <Input
           id="club-name"
           value={formData.name}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, name: e.target.value }))
-          }
+          onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
           required
         />
       </div>
@@ -755,9 +637,7 @@ function AddClubForm({
         <Textarea
           id="club-description"
           value={formData.description}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, description: e.target.value }))
-          }
+          onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
           required
         />
       </div>
@@ -766,9 +646,7 @@ function AddClubForm({
         <select
           id="college-select"
           value={formData.collegeId}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, collegeId: e.target.value }))
-          }
+          onChange={(e) => setFormData((prev) => ({ ...prev, collegeId: e.target.value }))}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         >
@@ -785,9 +663,7 @@ function AddClubForm({
         <Input
           id="club-admin-name"
           value={formData.adminName}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, adminName: e.target.value }))
-          }
+          onChange={(e) => setFormData((prev) => ({ ...prev, adminName: e.target.value }))}
           required
         />
       </div>
@@ -797,9 +673,7 @@ function AddClubForm({
           id="club-admin-email"
           type="email"
           value={formData.adminEmail}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, adminEmail: e.target.value }))
-          }
+          onChange={(e) => setFormData((prev) => ({ ...prev, adminEmail: e.target.value }))}
           required
         />
       </div>
