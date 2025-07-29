@@ -1,0 +1,93 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
+    function isClubMember(clubId) {
+      let userData = getUserData();
+      return userData.role == 'super_admin' ||
+             userData.role == 'college_admin' ||
+             (userData.role == 'club_admin' && userData.clubId == clubId) ||
+             (userData.role == 'student' && clubId in userData.enrolledClubs);
+    }
+    
+    function canModerateClub(clubId) {
+      let userData = getUserData();
+      return userData.role == 'super_admin' ||
+             userData.role == 'college_admin' ||
+             (userData.role == 'club_admin' && userData.clubId == clubId) ||
+             (userData.role == 'student' && 
+              clubId in userData.enrolledClubs && 
+              userData.clubRole in ['president', 'vice_president', 'lead']);
+    }
+    
+    // Users collection rules
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
+      allow read: if isAuthenticated(); // Allow reading other users for chat display
+    }
+    
+    // Clubs collection rules
+    match /clubs/{clubId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && canModerateClub(clubId);
+      
+      // Club members subcollection
+      match /members/{memberId} {
+        allow read: if isAuthenticated() && isClubMember(clubId);
+        allow write: if isAuthenticated() && canModerateClub(clubId);
+      }
+      
+      // Club messages subcollection - MAIN CHAT RULES
+      match /messages/{messageId} {
+        // Allow reading messages if user is a club member
+        allow read: if isAuthenticated() && isClubMember(clubId);
+        
+        // Allow creating messages if user is a club member and is the sender
+        allow create: if isAuthenticated() && 
+                     isClubMember(clubId) && 
+                     request.auth.uid == resource.data.senderId &&
+                     // Validate message structure
+                     request.resource.data.keys().hasAll(['senderId', 'senderName', 'text', 'timestamp']) &&
+                     request.resource.data.senderId is string &&
+                     request.resource.data.senderName is string &&
+                     request.resource.data.text is string &&
+                     request.resource.data.text.size() > 0 &&
+                     request.resource.data.text.size() <= 1000;
+        
+        // Allow updating/deleting messages if user is the sender or can moderate
+        allow update, delete: if isAuthenticated() && 
+                              (request.auth.uid == resource.data.senderId || 
+                               canModerateClub(clubId));
+      }
+      
+      // Club events subcollection
+      match /events/{eventId} {
+        allow read: if isAuthenticated() && isClubMember(clubId);
+        allow write: if isAuthenticated() && canModerateClub(clubId);
+      }
+    }
+    
+    // Colleges collection rules
+    match /colleges/{collegeId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && 
+                   (getUserData().role == 'super_admin' || 
+                    (getUserData().role == 'college_admin' && 
+                     getUserData().collegeName == resource.data.name));
+    }
+    
+    // Default deny all other documents
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -30,7 +30,6 @@ import {
 import {
   Users,
   Calendar,
-  MessageCircle,
   Plus,
   Search,
   Edit,
@@ -41,6 +40,7 @@ import {
   UserCheck,
 } from 'lucide-react';
 import { Navbar } from '@/components/navbar';
+import { ClubChat } from '@/components/club-chat';
 
 interface ClubMember {
   id: string;
@@ -410,47 +410,10 @@ export default function ClubAdminDashboard() {
           </TabsContent>
 
           <TabsContent value="chat" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MessageCircle className="h-5 w-5" />
-                  Club Chat Room
-                </CardTitle>
-                <CardDescription>Moderate and manage club communications</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-sm text-gray-600 mb-2">
-                      <strong>Alice Johnson:</strong> Hey everyone! Don't forget about tomorrow's
-                      workshop!
-                    </p>
-                    <div className="flex justify-between items-center text-xs text-gray-500">
-                      <span>2 hours ago</span>
-                      <Button size="sm" variant="outline">
-                        Pin Message
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-sm text-gray-600 mb-2">
-                      <strong>Bob Smith:</strong> Looking forward to it! Should we bring our own
-                      cameras?
-                    </p>
-                    <div className="flex justify-between items-center text-xs text-gray-500">
-                      <span>1 hour ago</span>
-                      <Button size="sm" variant="outline">
-                        Reply
-                      </Button>
-                    </div>
-                  </div>
-                  <Button className="w-full">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Open Full Chat
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <ClubChat
+              clubId={user.clubId || 'photography-club'}
+              clubName="Photography Club Chat"
+            />
           </TabsContent>
 
           <TabsContent value="profile" className="space-y-6">
